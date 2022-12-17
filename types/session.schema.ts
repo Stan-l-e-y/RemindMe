@@ -1,6 +1,7 @@
 import { object, string } from 'zod';
 
 //This schema corelates to logging in a user
+//This doesnt reflect what the session model will look like
 
 export const createSessionSchema = object({
   body: object({
