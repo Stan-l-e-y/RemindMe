@@ -1,6 +1,8 @@
 ## - Schema folder uses schemas to validate the incoming request,
 
-## with zod <- used by validateRequest middleware
+## with zod <- used by validateRequest middleware, middleware will validate the request
+
+## body against the schema
 
 ## - Services folder which contains services that are called by the routes,
 
