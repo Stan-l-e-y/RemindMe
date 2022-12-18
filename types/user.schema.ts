@@ -4,8 +4,11 @@ import { object, string, TypeOf } from 'zod';
 //will be used in the validation middleware
 export const createUserSchema = object({
   body: object({
-    name: string({
-      required_error: 'Name is required',
+    firstName: string({
+      required_error: 'First name is required',
+    }),
+    lastName: string({
+      required_error: 'Last name is required',
     }),
     password: string({
       required_error: 'Password is required',
@@ -28,3 +31,10 @@ export type CreateUserInput = Omit<
   TypeOf<typeof createUserSchema>,
   'body.passwordConfirmation'
 >;
+
+export interface UserInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
