@@ -6,10 +6,10 @@ export const createUserSchema = object({
   body: object({
     firstName: string({
       required_error: 'First name is required',
-    }),
+    }).min(2, 'First name must be at least 2 characters'),
     lastName: string({
       required_error: 'Last name is required',
-    }),
+    }).min(2, 'Last name must be at least 2 characters'),
     password: string({
       required_error: 'Password is required',
     }).min(6, 'Password must be at least 6 characters'),
@@ -38,3 +38,21 @@ export interface UserInput {
   email: string;
   password: string;
 }
+
+export const updateUserSchema = object({
+  body: object({
+    firstName: string().min(2, 'First name must be at least 2 characters'),
+    lastName: string().min(2, 'Last name must be at least 2 characters'),
+    password: string().min(6, 'Password must be at least 6 characters'),
+    passwordConfirmation: string(),
+  }).refine((data) => data.password === data.passwordConfirmation, {
+    message: 'Passwords must match',
+    path: ['passwordConfirmation'],
+  }),
+});
+
+export type UpdateUserInput = {
+  firstName?: string;
+  lastName?: string;
+  password?: string;
+};
