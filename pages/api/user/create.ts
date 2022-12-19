@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createUser } from '../../../services/user';
-import { CreateUserInput } from '../../../types/user.schema';
+import { UserInput } from '../../../types/user.schema';
+import { omit } from 'lodash';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +12,8 @@ export default async function handler(
   switch (method) {
     case 'POST':
       try {
-        const user = await createUser(req.body as CreateUserInput['body']);
+        req.body = omit(req.body, 'passwordConfirmation');
+        const user = await createUser(req.body as UserInput);
         res.status(201).json(user);
       } catch (error: any) {
         res.status(409).json({ error: error.message });

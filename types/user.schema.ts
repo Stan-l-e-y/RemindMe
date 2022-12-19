@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from 'zod';
+import { object, string, TypeOf, z } from 'zod';
 //This schema and type corelate to registering a user
 
 //will be used in the validation middleware
@@ -24,13 +24,6 @@ export const createUserSchema = object({
     path: ['passwordConfirmation'],
   }),
 });
-
-//will be used in the controller and passed to the service which is why
-//we do not need the passwordConfirmation field
-export type CreateUserInput = Omit<
-  TypeOf<typeof createUserSchema>,
-  'body.passwordConfirmation'
->;
 
 export interface UserInput {
   firstName: string;
