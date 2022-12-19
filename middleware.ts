@@ -1,10 +1,29 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createUserSchema } from './types/user.schema';
 
-// import { AnyZodObject } from 'zod/lib';
+import { AnyZodObject } from 'zod/lib';
 
-export default function middleware(req: NextRequest) {
+export default function middleware(req: NextRequest, res: NextResponse) {
   const { pathname } = req.nextUrl;
+  if (pathname.startsWith('/api/user/create')) {
+    // validate(createUserSchema)(req, res);
+    //CANNOT ALTER RESPONSES BODY UGHH
+    try {
+      createUserSchema.parse({
+        body: req.body,
+        params: req.nextUrl.searchParams,
+      });
+      return NextResponse.next();
+    } catch (error: any) {
+      console.log(req.body);
+      return NextResponse.json(
+        { success: false, message: error },
+        { status: 422, headers: { 'content-type': 'application/json' } }
+      );
+    }
+  }
+
   // const PUBLIC_FILE = /\.(.*)$/;
   // if (
   //   pathname.startsWith('/_next') || // exclude Next.js internals
@@ -17,22 +36,3 @@ export default function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
-
-// const validate =
-//   (schema: AnyZodObject) => (req: NextRequest, res: NextResponse) => {
-//     try {
-//       schema.parse({
-//         body: req.body,
-//         params: req.nextUrl.searchParams,
-//       });
-//       // return NextResponse.next();
-//     } catch (error: any) {
-//       return new NextResponse(
-//         JSON.stringify({ success: false, message: error }),
-//         { status: 40, headers: { 'content-type': 'application/json' } }
-//       );
-//     }
-//   };
-// export const config = {
-//   matcher: '/api/:path*',
-// };
