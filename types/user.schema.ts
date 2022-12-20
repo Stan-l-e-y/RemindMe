@@ -34,11 +34,23 @@ export interface UserInput {
 
 export const updateUserSchema = object({
   body: object({
-    firstName: string().min(2, 'First name must be at least 2 characters'),
-    lastName: string().min(2, 'Last name must be at least 2 characters'),
-    password: string().min(6, 'Password must be at least 6 characters'),
-    passwordConfirmation: string(),
-  }).refine((data) => data.password === data.passwordConfirmation, {
+    firstName: z
+      .string()
+      .min(2, 'First name must be at least 2 characters')
+      .optional(),
+    lastName: z
+      .string()
+      .min(2, 'Last name must be at least 2 characters')
+      .optional(),
+    password: z
+      .string()
+      .min(6, 'Password must be at least 2 characters')
+      .optional(),
+    passwordConfirmation: z
+      .string()
+      .min(6, 'Password Confimation must be at least 2 characters')
+      .optional(),
+  }).refine((data) => data?.password === data?.passwordConfirmation, {
     message: 'Passwords must match',
     path: ['passwordConfirmation'],
   }),

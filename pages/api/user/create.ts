@@ -14,9 +14,13 @@ export default async function handler(
 
   if (method === 'POST') {
     try {
-      validate(createUserSchema)(req);
-      req.body = omit(req.body, 'passwordConfirmation');
-      const user = await createUser(req.body as UserInput);
+      let createUserBody = validate(createUserSchema)(req);
+
+      if (createUserBody.body.passwordConfirmation) {
+        createUserBody = omit(createUserBody, 'body.passwordConfirmation');
+      }
+
+      const user = await createUser(createUserBody.body as UserInput);
       res.status(201).json(user);
     } catch (error: any) {
       if (error instanceof ZodError) {
