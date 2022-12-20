@@ -1,6 +1,6 @@
 ## - Schema folder uses schemas to validate the incoming request,
 
-## with zod <- used by validateRequest middleware, middleware will validate the request
+## with zod <- done by validateRequest helper in lib folder
 
 ## body against the schema
 

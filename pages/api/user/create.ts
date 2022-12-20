@@ -12,23 +12,21 @@ export default async function handler(
 ) {
   const { method } = req;
 
-  switch (method) {
-    case 'POST':
-      try {
-        validate(createUserSchema)(req);
-        req.body = omit(req.body, 'passwordConfirmation');
-        const user = await createUser(req.body as UserInput);
-        res.status(201).json(user);
-      } catch (error: any) {
-        if (error instanceof ZodError) {
-          res.status(400).json({ error: error.message });
-        } else {
-          res.status(409).json({ error: error.message });
-        }
+  if (method === 'POST') {
+    try {
+      validate(createUserSchema)(req);
+      req.body = omit(req.body, 'passwordConfirmation');
+      const user = await createUser(req.body as UserInput);
+      res.status(201).json(user);
+    } catch (error: any) {
+      if (error instanceof ZodError) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(409).json({ error: error.message });
       }
-      break;
-    default:
-      res.setHeader('Allow', ['POST']);
-      res.status(405).end(`Method ${method} Not Allowed`);
+    }
+  } else {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
