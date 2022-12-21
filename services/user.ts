@@ -2,6 +2,7 @@ import prisma from '../lib/prisma';
 import { omit } from 'lodash';
 import { UserInput, UpdateUserInput } from '../types/user.schema';
 import bcrypt from 'bcrypt';
+import { SessionInput } from '../types/session.schema';
 
 export async function createUser(input: UserInput) {
   try {
@@ -34,4 +35,25 @@ export async function updateUser(id: number, input: UpdateUserInput) {
   } catch (error: any) {
     throw new Error(error);
   }
+}
+
+export async function validatePassword(input: SessionInput) {
+  const user = await prisma.user.findUnique({
+    where: { email: input.body.email },
+  });
+
+  if (!user) {
+    return false;
+  }
+
+  const validPassword = await bcrypt.compare(
+    input.body.password,
+    user.password
+  );
+
+  if (validPassword) {
+    return omit(user, 'password');
+  }
+
+  return false;
 }
