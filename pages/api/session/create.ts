@@ -8,6 +8,7 @@ import {
 } from '../../../types/session.schema';
 import { validatePassword } from '../../../services/user';
 import { createSession } from '../../../services/session';
+import { signJwt } from '../../../lib/jwt.utils';
 
 export default async function handler(
   req: NextApiRequest,
@@ -29,6 +30,15 @@ export default async function handler(
         const session = await createSession(
           user.id,
           req.headers['user-agent'] || ''
+        );
+
+        const accessTokenTtl =
+          (process.env['accessTokenTtl'] as string) ?? '15m';
+
+        const accessToken = await signJwt(
+          { userId: user.id, sessionId: session.id },
+          'accessTokenPrivateKey',
+          { expiresIn: accessTokenTtl }
         );
       }
     } catch (error: any) {
