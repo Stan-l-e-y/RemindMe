@@ -1,5 +1,10 @@
 import * as jose from 'jose';
 
+export interface IJWTPayload extends jose.JWTPayload {
+  userId: number;
+  sessionId: number;
+}
+
 export async function signJwt(
   payload: jose.JWTPayload,
   keyName: 'accessTokenPrivateKey' | 'refreshTokenPrivateKey',
@@ -32,7 +37,7 @@ export async function verifyJwt(
     return {
       valid: true,
       expired: false,
-      decoded: payload,
+      decoded: payload as IJWTPayload,
     };
   } catch (error: any) {
     console.log(error);

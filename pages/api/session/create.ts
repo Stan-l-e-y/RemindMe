@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextRequest, userAgent } from 'next/server';
 import { ZodError } from 'zod';
 import validate from '../../../lib/validateResource';
 import {
@@ -35,11 +34,25 @@ export default async function handler(
         const accessTokenTtl =
           (process.env['accessTokenTtl'] as string) ?? '15m';
 
+        const refreshTokenTtl =
+          (process.env['refreshTokenTtl'] as string) ?? '1y';
+
         const accessToken = await signJwt(
           { userId: user.id, sessionId: session.id },
           'accessTokenPrivateKey',
           { expiresIn: accessTokenTtl }
         );
+
+        const refreshToken = await signJwt(
+          { userId: user.id, sessionId: session.id },
+          'refreshTokenPrivateKey',
+          { expiresIn: refreshTokenTtl }
+        );
+
+        res.status(200).json({
+          accessToken,
+          refreshToken,
+        });
       }
     } catch (error: any) {
       if (error instanceof ZodError) {
