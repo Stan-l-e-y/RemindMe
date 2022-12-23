@@ -4,6 +4,7 @@ import { verifyJwt } from './lib/jwt.utils';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
   //maybe as well  pathname post /login
+
   if (
     req.nextUrl.pathname !== '/login' &&
     req.nextUrl.pathname !== '/register' &&
@@ -11,7 +12,9 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   ) {
     const userId = req.headers.get('userId');
     if (!userId) {
-      return NextResponse.redirect('/login');
+      const url = req.nextUrl.clone();
+      url.pathname = '/login';
+      return NextResponse.redirect(url);
     }
   }
 
@@ -25,7 +28,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
 
   const { decoded, expired } = await verifyJwt(
     accessToken,
-    'accessTokenPublicKey'
+    'ACCESS_TOKEN_PUBLIC_KEY'
   );
 
   if (decoded) {

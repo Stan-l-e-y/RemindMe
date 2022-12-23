@@ -7,14 +7,12 @@ export interface IJWTPayload extends jose.JWTPayload {
 
 export async function signJwt(
   payload: jose.JWTPayload,
-  keyName: 'accessTokenPrivateKey' | 'refreshTokenPrivateKey',
+  keyName: 'ACCESS_TOKEN_PRIVATE_KEY' | 'REFRESH_PRIVATE_KEY',
   options?: jose.JWTPayload
 ) {
-  const signingKey = process.env[keyName] as string;
-
   const alg = process.env['alg'] as string;
 
-  const privateKey = await jose.importPKCS8(signingKey, alg);
+  const privateKey = new TextEncoder().encode(process.env[keyName] as string);
 
   return await new jose.SignJWT({ ...payload, ...(options && options) })
     .setProtectedHeader({ alg })
@@ -23,13 +21,9 @@ export async function signJwt(
 
 export async function verifyJwt(
   token: string,
-  keyName: 'accessTokenPublicKey' | 'refreshTokenPublicKey'
+  keyName: 'ACCESS_TOKEN_PUBLIC_KEY' | 'REFRESH_PUBLIC_KEY'
 ) {
-  const publicKey = process.env[keyName] as string;
-
-  const alg = process.env['alg'] as string;
-
-  const key = await jose.importSPKI(publicKey, alg);
+  const key = new TextEncoder().encode(process.env[keyName]);
 
   try {
     const { payload } = await jose.jwtVerify(token, key);

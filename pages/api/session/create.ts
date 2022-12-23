@@ -39,13 +39,13 @@ export default async function handler(
 
         const accessToken = await signJwt(
           { userId: user.id, sessionId: session.id },
-          'accessTokenPrivateKey',
+          'ACCESS_TOKEN_PRIVATE_KEY',
           { expiresIn: accessTokenTtl }
         );
 
         const refreshToken = await signJwt(
           { userId: user.id, sessionId: session.id },
-          'refreshTokenPrivateKey',
+          'REFRESH_PRIVATE_KEY',
           { expiresIn: refreshTokenTtl }
         );
 
