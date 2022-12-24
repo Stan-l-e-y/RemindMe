@@ -23,10 +23,16 @@ export async function verifyJwt(
   token: string,
   keyName: 'ACCESS_TOKEN_PUBLIC_KEY' | 'REFRESH_PUBLIC_KEY'
 ) {
-  const key = new TextEncoder().encode(process.env[keyName]);
+  //i think this shit finally works... depreciated but its the only way??
+  //it decodes a base64 encoded string to a string using utf-8 encoding
+  const spki = atob(process.env.ACCESS_TOKEN_PUBLIC_KEY as string);
+  console.log(spki);
+
+  const publicKey = await jose.importSPKI(spki, 'RS256');
+  console.log('good');
 
   try {
-    const { payload } = await jose.jwtVerify(token, key);
+    const { payload } = await jose.jwtVerify(token, publicKey);
 
     return {
       valid: true,
