@@ -12,7 +12,12 @@ export async function signJwt(
 ) {
   const alg = process.env['alg'] as string;
 
-  const privateKey = new TextEncoder().encode(process.env[keyName] as string);
+  let spki = atob(process.env.ACCESS_TOKEN_PRIVATE_KEY as string);
+  if (keyName === 'REFRESH_PRIVATE_KEY') {
+    spki = atob(process.env.REFRESH_PRIVATE_KEY as string);
+  }
+
+  const privateKey = await jose.importPKCS8(spki, alg);
 
   return await new jose.SignJWT({ ...payload, ...(options && options) })
     .setProtectedHeader({ alg })
@@ -25,7 +30,10 @@ export async function verifyJwt(
 ) {
   //i think this shit finally works... depreciated but its the only way??
   //it decodes a base64 encoded string to a string using utf-8 encoding
-  const spki = atob(process.env.ACCESS_TOKEN_PUBLIC_KEY as string);
+  let spki = atob(process.env.ACCESS_TOKEN_PUBLIC_KEY as string);
+  if (keyName === 'REFRESH_PUBLIC_KEY') {
+    spki = atob(process.env.REFRESH_PUBLIC_KEY as string);
+  }
   console.log(spki);
 
   const publicKey = await jose.importSPKI(spki, 'RS256');
