@@ -34,10 +34,8 @@ export async function verifyJwt(
   if (keyName === 'REFRESH_PUBLIC_KEY') {
     spki = atob(process.env.REFRESH_PUBLIC_KEY as string);
   }
-  console.log(spki);
 
   const publicKey = await jose.importSPKI(spki, 'RS256');
-  console.log('good');
 
   try {
     const { payload } = await jose.jwtVerify(token, publicKey);
@@ -51,7 +49,7 @@ export async function verifyJwt(
     console.log(error);
     return {
       valid: false,
-      expired: error.message === 'JWT expired',
+      expired: error.message === 'Token has expired', //TODO: THIS MAY NOT WORK, CHECK WHAT ERROR.MESSAGE IS
       decoded: null,
     };
   }

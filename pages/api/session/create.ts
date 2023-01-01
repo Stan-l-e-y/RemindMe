@@ -8,6 +8,7 @@ import {
 import { validatePassword } from '../../../services/user';
 import { createSession } from '../../../services/session';
 import { signJwt } from '../../../lib/jwt.utils';
+import Cookies from 'cookies';
 
 export default async function handler(
   req: NextApiRequest,
@@ -38,16 +39,35 @@ export default async function handler(
           (process.env['refreshTokenTtl'] as string) ?? '1y';
 
         const accessToken = await signJwt(
-          { userId: user.id, sessionId: session.id },
+          { ...user, session: session.id },
           'ACCESS_TOKEN_PRIVATE_KEY',
           { expiresIn: accessTokenTtl }
         );
 
         const refreshToken = await signJwt(
-          { userId: user.id, sessionId: session.id },
+          { ...user, session: session.id },
           'REFRESH_PRIVATE_KEY',
           { expiresIn: refreshTokenTtl }
         );
+
+        const cookies = new Cookies(req, res);
+        cookies.set('accessToken', accessToken, {
+          maxAge: 900000, // 15 mins
+          httpOnly: true,
+          domain: 'localhost',
+          path: '/',
+          sameSite: 'strict',
+          secure: false,
+        });
+
+        cookies.set('refreshToken', refreshToken, {
+          maxAge: 3.154e10, // 1 year
+          httpOnly: true,
+          domain: 'localhost',
+          path: '/',
+          sameSite: 'strict',
+          secure: false,
+        });
 
         res.status(200).json({
           accessToken,

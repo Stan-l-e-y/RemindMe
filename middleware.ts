@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJwt } from './lib/jwt.utils';
+import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
   //maybe as well  pathname post /login
@@ -15,30 +16,58 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     req.nextUrl.pathname !== '/register' &&
     req.nextUrl.pathname !== '/api/session/create'
   ) {
-    const userId = req.headers.get('userId');
-    if (!userId) {
-      const url = req.nextUrl.clone();
+    const url = req.nextUrl.clone();
+
+    const accessToken =
+      req.cookies.get('accessToken')?.value ||
+      req.headers.get('Authorization')?.replace(/^Bearer\s/, ''); //or try lodash get
+
+    const refreshToken =
+      req.cookies.get('refreshToken')?.value ||
+      req.headers.get('headers.x-refresh');
+
+    if (!accessToken) {
       url.pathname = '/login';
       return NextResponse.redirect(url);
     }
-  }
 
-  const accessToken = req.headers
-    .get('Authorization')
-    ?.replace(/^Bearer\s/, ''); //or try lodash get
+    const { decoded, expired } = await verifyJwt(
+      accessToken,
+      'ACCESS_TOKEN_PUBLIC_KEY'
+    );
 
-  if (!accessToken) {
-    return NextResponse.next();
-  }
+    if (decoded) {
+      return NextResponse.next();
+    }
 
-  const { decoded, expired } = await verifyJwt(
-    accessToken,
-    'ACCESS_TOKEN_PUBLIC_KEY'
-  );
+    if (expired && refreshToken) {
+      const newAccessToken = await reIssueAccessToken({ refreshToken });
 
-  if (decoded) {
-    res.headers.set('userId', String(decoded.userId));
-    return NextResponse.next();
+      if (newAccessToken) {
+        res.headers.set('x-access-token', newAccessToken);
+
+        res.cookies.set('accessToken', newAccessToken, {
+          maxAge: 900000, // 15 mins
+          httpOnly: true,
+          domain: 'localhost',
+          path: '/',
+          sameSite: 'strict',
+          secure: false,
+        });
+      }
+
+      const { decoded } = await verifyJwt(
+        newAccessToken as string,
+        'ACCESS_TOKEN_PUBLIC_KEY'
+      );
+
+      if (decoded) {
+        return NextResponse.next();
+      }
+    }
+
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
