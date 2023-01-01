@@ -1,6 +1,5 @@
 import { User } from '@prisma/client';
 import * as jose from 'jose';
-import { JWTExpired } from 'jose/dist/types/util/errors';
 
 export interface IJWTPayload extends jose.JWTPayload {
   user: User;
@@ -14,15 +13,16 @@ export async function signJwt(
 ) {
   const alg = process.env['alg'] as string;
 
-  let spki = atob(process.env.ACCESS_TOKEN_PRIVATE_KEY as string);
+  let pkcs8 = atob(process.env.ACCESS_TOKEN_PRIVATE_KEY as string);
   if (keyName === 'REFRESH_PRIVATE_KEY') {
-    spki = atob(process.env.REFRESH_PRIVATE_KEY as string);
+    pkcs8 = atob(process.env.REFRESH_PRIVATE_KEY as string);
   }
 
-  const privateKey = await jose.importPKCS8(spki, alg);
+  const privateKey = await jose.importPKCS8(pkcs8, 'RS256');
 
   return await new jose.SignJWT({ ...payload, ...(options && options) })
     .setProtectedHeader({ alg })
+    .setExpirationTime(keyName == 'REFRESH_PRIVATE_KEY' ? '1y' : '15m')
     .sign(privateKey);
 }
 
@@ -49,7 +49,7 @@ export async function verifyJwt(
     };
   } catch (error: any) {
     console.log(error);
-    if (error instanceof JWTExpired) {
+    if (error instanceof jose.errors.JWTExpired) {
       return {
         valid: false,
         expired: true,
@@ -58,7 +58,7 @@ export async function verifyJwt(
     }
     return {
       valid: false,
-      expired: error.message === 'ERR_JWT_EXPIRED', //TODO: THIS MAY NOT WORK, CHECK WHAT ERROR.MESSAGE IS
+      expired: error.code === 'ERR_JWT_EXPIRED',
       decoded: null,
     };
   }

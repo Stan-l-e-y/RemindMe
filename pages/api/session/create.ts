@@ -32,22 +32,14 @@ export default async function handler(
           req.headers['user-agent'] || ''
         );
 
-        const accessTokenTtl =
-          (process.env['accessTokenTtl'] as string) ?? '15m';
-
-        const refreshTokenTtl =
-          (process.env['refreshTokenTtl'] as string) ?? '1y';
-
         const accessToken = await signJwt(
           { ...user, session: session.id },
-          'ACCESS_TOKEN_PRIVATE_KEY',
-          { expiresIn: accessTokenTtl }
+          'ACCESS_TOKEN_PRIVATE_KEY'
         );
 
         const refreshToken = await signJwt(
           { ...user, session: session.id },
-          'REFRESH_PRIVATE_KEY',
-          { expiresIn: refreshTokenTtl }
+          'REFRESH_PRIVATE_KEY'
         );
 
         const cookies = new Cookies(req, res);

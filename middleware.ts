@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJwt } from './lib/jwt.utils';
-import { reIssueAccessToken } from './services/session';
+import { reIssueAccessToken } from './lib/temp-reissue';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
   //TODO: What im looking for to test
@@ -37,18 +37,24 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
       accessToken,
       'ACCESS_TOKEN_PUBLIC_KEY'
     );
-
+    console.log(expired);
     if (decoded) {
       return NextResponse.next();
     }
 
     if (expired && refreshToken) {
       const newAccessToken = await reIssueAccessToken({ refreshToken }); //TODO: bruh this will not work prob, this is calling prisma/db on the edge
+      const requestHeaders = new Headers(req.headers);
 
+      const response = NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      });
       if (newAccessToken) {
-        res.headers.set('x-access-token', newAccessToken);
+        response.headers.set('x-access-token', newAccessToken);
 
-        res.cookies.set('accessToken', newAccessToken, {
+        response.cookies.set('accessToken', newAccessToken, {
           maxAge: 900000, // 15 mins
           httpOnly: true,
           domain: 'localhost',
@@ -64,7 +70,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
       );
 
       if (decoded) {
-        return NextResponse.next();
+        return response;
       }
     }
 

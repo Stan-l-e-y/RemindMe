@@ -52,19 +52,13 @@ export async function reIssueAccessToken({
 
     // if (!user) return false;
 
-    const accessTokenTtl = (process.env['accessTokenTtl'] as string) ?? '15m';
-
     // const accessToken = await signJwt(
     //   { ...user, session: session.id },
     //   'ACCESS_TOKEN_PRIVATE_KEY',
     //   { expiresIn: accessTokenTtl } // 15 minutes
     // );
 
-    const accessToken = await signJwt(
-      { decoded },
-      'ACCESS_TOKEN_PRIVATE_KEY',
-      { expiresIn: accessTokenTtl } // 15 minutes
-    );
+    const accessToken = await signJwt({ decoded }, 'ACCESS_TOKEN_PRIVATE_KEY');
 
     return accessToken;
   } catch (error: any) {
