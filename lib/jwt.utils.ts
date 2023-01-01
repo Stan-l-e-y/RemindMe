@@ -1,8 +1,10 @@
+import { User } from '@prisma/client';
 import * as jose from 'jose';
+import { JWTExpired } from 'jose/dist/types/util/errors';
 
 export interface IJWTPayload extends jose.JWTPayload {
-  userId: number;
-  sessionId: number;
+  user: User;
+  session: number;
 }
 
 export async function signJwt(
@@ -47,9 +49,16 @@ export async function verifyJwt(
     };
   } catch (error: any) {
     console.log(error);
+    if (error instanceof JWTExpired) {
+      return {
+        valid: false,
+        expired: true,
+        decoded: null,
+      };
+    }
     return {
       valid: false,
-      expired: error.message === 'Token has expired', //TODO: THIS MAY NOT WORK, CHECK WHAT ERROR.MESSAGE IS
+      expired: error.message === 'ERR_JWT_EXPIRED', //TODO: THIS MAY NOT WORK, CHECK WHAT ERROR.MESSAGE IS
       decoded: null,
     };
   }
