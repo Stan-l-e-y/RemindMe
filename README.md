@@ -40,4 +40,4 @@ Upon Authentication (via Next-Todo or an Identity Provider), Users will be grant
 
 ![OAuth OpenID](https://miro.medium.com/max/720/0*bPC5YzMETbF81R4E.webp)
 
-Upon Authentication with an Identity Provider, Users will be granted an ID token in the form of a JWT, which will be used for authenticating the user and to fetch user information. Read more about ID tokens [here](https://auth0.com/docs/tokens/concepts/id-tokens).
+Upon Authentication with an Identity Provider, Users will be granted an ID token in the form of a JWT, which will be used for authenticating the user and to fetch user information. Read more about [ID tokens](https://auth0.com/docs/tokens/concepts/id-tokens).
