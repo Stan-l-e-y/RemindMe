@@ -32,7 +32,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![Authorization Token Flow](/public/refresh-token-flow.png)
 
-## Upon Authentication (via Next-Todo or an OAuth provider), Users will be granted an API access and refresh token in the form of a JWT.
+## Upon Authentication (via Next-Todo or an OAuth provider), Users will be granted API access and refresh tokens in the form of a JWT.
 
 ## OAuth 2.0 OpenID Connect Authorization Code Flow
 
