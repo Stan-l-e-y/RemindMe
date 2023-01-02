@@ -52,6 +52,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
         },
       });
       if (newAccessToken) {
+        //if the client is on a separete domain cannot set cookies therefore has to resolve to taking the cookies from the header. Then in theory, the client should have a middleware that checks if new tokens are set in the headers via the line below and then update the localstorage with the new tokens
         response.headers.set('x-access-token', newAccessToken);
 
         response.cookies.set('accessToken', newAccessToken, {

@@ -34,8 +34,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![Authorization Token Flow](/public/refresh-token-flow.png)
 
-## Upon Authentication (via Next-Todo or an OAuth provider), Users will be granted API access and refresh tokens in the form of a JWT.
+Upon Authentication (via Next-Todo or an Identity Provider), Users will be granted API Access and Refresh tokens in the form of a JWT. Read more about [Access](https://auth0.com/docs/tokens/concepts/access-tokens) and [Refresh](https://auth0.com/docs/secure/tokens/refresh-tokens) tokens.
 
 # OAuth 2.0 OpenID Connect Authorization Code Flow
 
 ![OAuth OpenID](https://miro.medium.com/max/720/0*bPC5YzMETbF81R4E.webp)
+
+Upon Authentication with an Identity Provider, Users will be granted an ID token in the form of a JWT, which will be used for authenticating the user and to fetch user information. Read more about ID tokens [here](https://auth0.com/docs/tokens/concepts/id-tokens).

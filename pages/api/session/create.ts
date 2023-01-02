@@ -71,6 +71,10 @@ export default async function handler(
           secure: false,
         });
 
+        //if client cannot handle cookies, send tokens in response body
+        //then the client will take this json response and store it in localstorage or however they want to store it and use it for future requests in the Authorization header
+
+        //if the client is on a separete domain and has to do the above. Then in theory, the client should have a middleware that checks if new tokens are set in the headers via the server middleware and then update the localstorage with the new tokens
         res.status(200).json({
           accessToken,
           refreshToken,
