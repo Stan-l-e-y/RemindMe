@@ -34,8 +34,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Upon Authentication (via Next-Todo or an OAuth provider), Users will be granted an API access and refresh token in the form of a JWT.
 
-#
-
 ## OAuth 2.0 OpenID Connect Authorization Code Flow
 
 ![OAuth OpenID](https://miro.medium.com/max/720/0*bPC5YzMETbF81R4E.webp)
