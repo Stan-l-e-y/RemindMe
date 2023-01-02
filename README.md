@@ -1,4 +1,4 @@
-## Bootstrapping Next-Todo
+# Bootstrapping Next-Todo
 
 First, clone the repo, cd into the repo and download the dependancies:
 
@@ -24,7 +24,9 @@ Rename the `.env-example`
 .env-example => .env
 ```
 
-For signing JWTs, asymmetric public SPKI and private PKCS#8 encoded RSA keys will be needed. This [link](https://stackoverflow.com/a/44474607/17552327) describes how to generate such keys through the OpenSSL library. Before adding your keys to the appropriate environment variables **_please ensure that you base64 encode your keys, [here](https://www.base64encode.org/) is a handy site that will do so for you_**.
+## Environment Variables
+
+❗ For signing JWTs, asymmetric public SPKI and private PKCS#8 encoded RSA keys will be needed. This [link](https://stackoverflow.com/a/44474607/17552327) describes how to generate such keys through the OpenSSL library. Before adding your keys to the appropriate environment variables **_please ensure that you base64 encode your keys, [here](https://www.base64encode.org/) is a handy site that will do so for you_**.❗
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
