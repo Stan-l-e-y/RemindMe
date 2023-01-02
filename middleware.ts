@@ -4,13 +4,9 @@ import { verifyJwt } from './lib/jwt.utils';
 import { reIssueAccessToken } from './lib/temp-reissue';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //TODO: What im looking for to test
-  //when i try to access localhost:3000/ without being logged in, i want to be redirected to localhost:3000/login, check for response code 302/redirect
-  //when i create a session/log in, i want the response to set the token cookies as well as return the cookies in the response body
-  //when im logged in, i want to be able to access localhost:3000/ and get a 200 response with the html page
-  //remove the cookies or just log in again to get new access tokens but this time, expire the access token right away to test if the refresh
-  //token will reissue and set a new access token. Login->returns and sets expired access cookie but valid refresh, try to access localhost:3000/
-  //if it takes me straight to the index page that means it worked (and it reissued one/set the cookie), if it takes me to the login page then something went wrong
+  //expired token successfully reissues a new one with the refresh token :)
+  //Missing accesstoken also redirects to login :)
+  //Unverifiable JWT results in a redirect to login :)
 
   if (
     req.nextUrl.pathname !== '/login' &&
@@ -73,7 +69,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
         return response;
       }
     }
-
+    console.log('failed to verify, redirecting to login...');
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
