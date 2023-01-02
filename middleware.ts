@@ -8,6 +8,10 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   //Missing accesstoken also redirects to login :)
   //Unverifiable JWT results in a redirect to login :)
 
+  //TODO: create basic login and register pages
+  //TODO: create the prisma proxy and use it to call the db on the edge
+  //TODO: fix the reissueAccessToken function to work with the prisma proxy and add a logout router/handler
+
   if (
     req.nextUrl.pathname !== '/login' &&
     req.nextUrl.pathname !== '/register' &&
