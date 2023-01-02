@@ -30,8 +30,6 @@ Rename the `.env-example`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-#
-
 # Next-Todo Authorization API Token Flow
 
 ![Authorization Token Flow](/public/refresh-token-flow.png)
