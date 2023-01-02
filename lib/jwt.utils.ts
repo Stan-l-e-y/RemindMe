@@ -9,7 +9,8 @@ export interface IJWTPayload extends jose.JWTPayload {
 export async function signJwt(
   payload: jose.JWTPayload,
   keyName: 'ACCESS_TOKEN_PRIVATE_KEY' | 'REFRESH_PRIVATE_KEY',
-  options?: jose.JWTPayload
+  options?: jose.JWTPayload,
+  ttl?: string
 ) {
   const alg = process.env['alg'] as string;
 
@@ -22,7 +23,7 @@ export async function signJwt(
 
   return await new jose.SignJWT({ ...payload, ...(options && options) })
     .setProtectedHeader({ alg })
-    .setExpirationTime(keyName == 'REFRESH_PRIVATE_KEY' ? '1y' : '15m')
+    .setExpirationTime(ttl || '15m')
     .sign(privateKey);
 }
 

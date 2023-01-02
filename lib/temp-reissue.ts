@@ -12,7 +12,14 @@ export async function reIssueAccessToken({
 
     if (!decoded || !get(decoded, 'session')) return false;
 
-    const accessToken = await signJwt({ decoded }, 'ACCESS_TOKEN_PRIVATE_KEY');
+    const accessTokenTtl = (process.env['accessTokenTtl'] as string) ?? '15m';
+
+    const accessToken = await signJwt(
+      { decoded },
+      'ACCESS_TOKEN_PRIVATE_KEY',
+      undefined,
+      accessTokenTtl
+    );
 
     return accessToken;
   } catch (error: any) {
