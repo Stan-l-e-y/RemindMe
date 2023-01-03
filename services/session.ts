@@ -61,7 +61,7 @@ export async function reIssueAccessToken({
     const accessTokenTtl = (process.env['accessTokenTtl'] as string) ?? '15m';
 
     const accessToken = await signJwt(
-      { decoded },
+      { ...decoded }, //TODO:bring this back to ...user, session:session.id
       'ACCESS_TOKEN_PRIVATE_KEY',
       undefined,
       accessTokenTtl
