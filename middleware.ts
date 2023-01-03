@@ -8,9 +8,29 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   //Missing accesstoken also redirects to login :)
   //Unverifiable JWT results in a redirect to login :)
 
-  //TODO: create basic login and register pages
   //TODO: create the prisma proxy and use it to call the db on the edge
   //TODO: fix the reissueAccessToken function to work with the prisma proxy and add a logout router/handler
+
+  if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
+    const accessToken =
+      req.cookies.get('accessToken')?.value ||
+      req.headers.get('Authorization')?.replace(/^Bearer\s/, ''); //or try lodash get
+
+    if (!accessToken) {
+      return NextResponse.next();
+    }
+    const { decoded, expired } = await verifyJwt(
+      accessToken,
+      'ACCESS_TOKEN_PUBLIC_KEY'
+    );
+
+    if (!decoded) {
+      return NextResponse.next();
+    }
+    const url = req.nextUrl.clone();
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
 
   if (
     req.nextUrl.pathname !== '/login' &&
@@ -37,7 +57,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
       accessToken,
       'ACCESS_TOKEN_PUBLIC_KEY'
     );
-    console.log(expired);
+
     if (decoded) {
       return NextResponse.next();
     }
@@ -81,3 +101,6 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
 
   return NextResponse.next();
 }
+export const config = {
+  matcher: '/((?!api|_next/static|favicon.ico).*)',
+};

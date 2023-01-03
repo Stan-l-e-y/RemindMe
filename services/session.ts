@@ -72,3 +72,13 @@ export async function reIssueAccessToken({
     throw new Error(error);
   }
 }
+
+export function exclude<Session, Key extends keyof Session>(
+  session: Session,
+  keys: Key[]
+): Omit<Session, Key> {
+  for (let key of keys) {
+    delete session[key];
+  }
+  return session;
+}

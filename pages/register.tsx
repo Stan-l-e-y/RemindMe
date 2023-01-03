@@ -48,7 +48,7 @@ export default function Register() {
       </Head>
 
       <main className={`${styles.main} `}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Register</h1>
         {serverError && (
           <p className="error mt-5 mb-5 text-red-500">{serverError}</p>
         )}

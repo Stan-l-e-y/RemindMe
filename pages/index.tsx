@@ -2,9 +2,8 @@ import styles from '../styles/Home.module.css';
 import useSwr from 'swr';
 import fetcher from '../lib/fetcher';
 import type { GetServerSideProps, NextPage } from 'next';
-import { findSessions } from '../services/session';
-import jose from 'jose';
-import { IJWTPayload } from '../lib/jwt.utils';
+import { findSessions, exclude } from '../services/session';
+import { verifyJwt } from '../lib/jwt.utils';
 import { Session } from '@prisma/client';
 
 const Home: NextPage<{ fallbackData: Session[] }> = ({ fallbackData }) => {
@@ -20,7 +19,6 @@ const Home: NextPage<{ fallbackData: Session[] }> = ({ fallbackData }) => {
         {sessions.map((session) => (
           <div key={session.id}>{session.id}</div>
         ))}
-        );
       </div>
     );
   }
@@ -32,12 +30,26 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token =
     context.req.headers.authorization ||
     (context.req.cookies.accessToken as string);
-  console.log('testing token', token);
-  const { user } = jose.decodeJwt(token) as IJWTPayload;
 
-  const sessions = await findSessions({ userId: user.id, valid: true });
+  try {
+    const { decoded } = await verifyJwt(token, 'ACCESS_TOKEN_PUBLIC_KEY');
 
-  return { props: { fallbackData: sessions } };
+    if (decoded) {
+      const sessions = await findSessions({
+        userId: decoded.id,
+        valid: true,
+      });
+
+      const newSessions = sessions.map((session) =>
+        exclude(session, ['createdAt', 'updatedAt'])
+      ) as Session[];
+
+      return { props: { fallbackData: newSessions } };
+    }
+    return { props: { fallbackData: [] } };
+  } catch (error) {
+    return { props: { fallbackData: [] } };
+  }
 };
 
 export default Home;
