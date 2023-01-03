@@ -1,4 +1,4 @@
-# Bootstrapping Next-Todo
+# Bootstrapping RemindMe
 
 First, clone the repo, cd into the repo and download the dependancies:
 
@@ -30,11 +30,11 @@ Rename the `.env-example`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# Next-Todo Authorization API Token Flow
+# RemindMe Authorization API Token Flow
 
 ![Authorization Token Flow](/public/refresh-token-flow.png)
 
-Upon Authentication (via Next-Todo or an Identity Provider), Users will be granted API Access and Refresh tokens in the form of a JWT. Read more about [Access](https://auth0.com/docs/tokens/concepts/access-tokens) and [Refresh](https://auth0.com/docs/secure/tokens/refresh-tokens) tokens.
+Upon Authentication (via RemindMe or an Identity Provider), Users will be granted API Access and Refresh tokens in the form of a JWT. Read more about [Access](https://auth0.com/docs/tokens/concepts/access-tokens) and [Refresh](https://auth0.com/docs/secure/tokens/refresh-tokens) tokens.
 
 # OAuth 2.0 OpenID Connect Authorization Code Flow
 
