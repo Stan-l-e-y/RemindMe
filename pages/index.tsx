@@ -28,7 +28,7 @@ const Home: NextPage<{ fallbackData: Session[] }> = ({ fallbackData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token =
-    context.req.headers.authorization ||
+    (context.res.getHeader('x-access-token') as string) ||
     (context.req.cookies.accessToken as string);
 
   try {

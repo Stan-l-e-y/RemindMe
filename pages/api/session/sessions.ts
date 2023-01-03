@@ -7,7 +7,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const accesstoken =
-    req.headers.authorization || (req.cookies.accessToken as string);
+    (res.getHeader('x-access-token') as string) ||
+    (req.cookies.accessToken as string);
 
   try {
     const { decoded } = await verifyJwt(accesstoken, 'ACCESS_TOKEN_PUBLIC_KEY');

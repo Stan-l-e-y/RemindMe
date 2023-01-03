@@ -4,7 +4,6 @@ import { verifyJwt } from './lib/jwt.utils';
 import { reIssueAccessToken } from './lib/temp-reissue'; //TODO: change this back to import from the session services file
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //TODO: create the prisma proxy and use it to call the db on the edge
   //TODO: fix the reissueAccessToken function to work with the prisma proxy and add a logout router/handler
 
   if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
@@ -79,6 +78,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
           sameSite: 'strict',
           secure: false,
         });
+        requestHeaders.set('x-access-token', newAccessToken);
       }
 
       const { decoded } = await verifyJwt(
@@ -98,5 +98,5 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: '/((?!api|_next/static|favicon.ico).*)',
+  matcher: '/((?!favicon.ico).*)',
 };
