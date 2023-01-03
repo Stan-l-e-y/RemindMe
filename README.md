@@ -7,7 +7,7 @@ First,
 - install the dependancies
 
 ```bash
-cd Next-Todo-ts
+cd RemindMe
 
 npm install
 # or
