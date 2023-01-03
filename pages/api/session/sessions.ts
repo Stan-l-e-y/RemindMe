@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { findSessions } from '../../../services/session';
-import jose from 'jose';
-import { IJWTPayload, verifyJwt } from '../../../lib/jwt.utils';
+import { verifyJwt } from '../../../lib/jwt.utils';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

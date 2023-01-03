@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJwt } from './lib/jwt.utils';
-import { reIssueAccessToken } from './lib/temp-reissue'; //TODO: change this back to import from the session services file
+import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //TODO: fix the reissueAccessToken function to work with the prisma proxy and add a logout router/handler
+  //TODO: add a logout router/handler
 
   if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
     const accessToken =
@@ -58,7 +58,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     }
 
     if (expired && refreshToken) {
-      const newAccessToken = await reIssueAccessToken({ refreshToken }); //TODO: bruh this will not work prob, this is calling prisma/db on the edge
+      const newAccessToken = await reIssueAccessToken({ refreshToken });
       const requestHeaders = new Headers(req.headers);
 
       const response = NextResponse.next({
@@ -98,5 +98,5 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: '/((?!favicon.ico).*)',
+  matcher: '/((?!favicon.ico|_next).*)',
 };
