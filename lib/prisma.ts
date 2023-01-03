@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client/edge';
-
+//TODO: possibly make another client for Nodejs, since
+//this one always hits the proxy
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'production') {
