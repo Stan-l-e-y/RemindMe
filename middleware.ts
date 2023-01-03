@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJwt } from './lib/jwt.utils';
-import { reIssueAccessToken } from './lib/temp-reissue';
+import { reIssueAccessToken } from './lib/temp-reissue'; //TODO: change this back to import from the session services file
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
   //expired token successfully reissues a new one with the refresh token :)
