@@ -1,15 +1,19 @@
 const fetcher = async <T>(
   url: URL | RequestInfo,
-  options?: RequestInit | undefined
+  options?: RequestInit | undefined,
+  throwError = false
 ) => {
   try {
-    const { data } = await fetch(url, {
+    const res = await fetch(url, {
       ...options,
       credentials: 'include',
-    }).then((res) => res.json());
+    });
 
+    const data = await res.json();
+    if (data?.error) throw new Error(data.error);
     return data as T;
   } catch (error: any) {
+    if (throwError) throw new Error(error);
     return null;
   }
 };

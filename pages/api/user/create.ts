@@ -26,7 +26,8 @@ export default async function handler(
       if (error instanceof ZodError) {
         res.status(400).json({ error: error.message });
       } else {
-        res.status(409).json({ error: error.message });
+        console.log(error);
+        res.status(409).json({ error: `User with email already exists` });
       }
     }
   } else {

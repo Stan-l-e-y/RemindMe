@@ -23,20 +23,24 @@ export default function Register() {
 
   const onSubmit = async (data: CreateUserInput) => {
     try {
-      await fetcher('/api/user/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetcher(
+        '/api/user/create',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+        true
+      );
 
       router.push('/login');
     } catch (error: any) {
       setServerError(error.message);
       setTimeout(() => {
         setServerError(null);
-      }, 4000);
+      }, 8000);
     }
   };
   return (
