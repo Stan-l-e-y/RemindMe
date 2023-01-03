@@ -5,27 +5,25 @@ import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import fetcher from '../lib/fetcher';
 import { useState } from 'react';
-import {
-  createSessionSchema,
-  CreateSessionInput,
-} from '../types/client/session';
+import { createUserSchema, CreateUserInput } from '../types/client/user';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
+
     formState: { errors },
-  } = useForm<CreateSessionInput>({
-    resolver: zodResolver(createSessionSchema),
+  } = useForm<CreateUserInput>({
+    resolver: zodResolver(createUserSchema),
   });
 
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const onSubmit = async (data: CreateSessionInput) => {
+  const onSubmit = async (data: CreateUserInput) => {
     try {
-      await fetcher('/api/session/create', {
+      await fetcher('/api/user/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +31,7 @@ export default function Login() {
         body: JSON.stringify(data),
       });
 
-      router.push('/');
+      router.push('/login');
     } catch (error: any) {
       setServerError(error.message);
       setTimeout(() => {
@@ -85,6 +83,61 @@ export default function Login() {
                 <p className="text-red-500 mt-3">{errors.email?.message}</p>
               )}
             </div>
+
+            <div className="mt-10 flex flex-col ">
+              <label htmlFor="firstName" className="font-semibold mb-2">
+                First Name
+              </label>
+              <input
+                type="text"
+                className="form-control
+                w-full
+                          self-start
+                          px-3
+                          py-1.5
+                          text-base
+                          font-normal
+                          text-white
+                          border border-solid border-gray-700
+                          rounded-lg
+                          transition
+                          ease-in-out
+                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                {...register('firstName')}
+                placeholder="Enter First Name*"
+              ></input>
+              {errors.firstName && (
+                <p className="text-red-500 mt-3">{errors.firstName.message}</p>
+              )}
+            </div>
+
+            <div className="mt-10 flex flex-col ">
+              <label htmlFor="lastName" className="font-semibold mb-2">
+                Last Name
+              </label>
+              <input
+                type="text"
+                className="form-control
+                w-full
+                          self-start
+                          px-3
+                          py-1.5
+                          text-base
+                          font-normal
+                          text-white
+                          border border-solid border-gray-700
+                          rounded-lg
+                          transition
+                          ease-in-out
+                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                {...register('lastName')}
+                placeholder="Enter Last Name*"
+              ></input>
+              {errors.lastName && (
+                <p className="text-red-500 mt-3">{errors.lastName.message}</p>
+              )}
+            </div>
+
             <div className="mt-10 flex flex-col ">
               <label htmlFor="password" className="font-semibold mb-2">
                 Password
@@ -111,18 +164,51 @@ export default function Login() {
                 <p className="text-red-500 mt-3">{errors.password?.message}</p>
               )}
             </div>
+
+            <div className="mt-10 flex flex-col ">
+              <label
+                htmlFor="passwordConfirmation"
+                className="font-semibold mb-2"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                className="form-control
+                w-full
+                          self-start
+                          px-3
+                          py-1.5
+                          text-base
+                          font-normal
+                          text-white
+                          border border-solid border-gray-700
+                          rounded-lg
+                          transition
+                          ease-in-out
+                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                {...register('passwordConfirmation')}
+                placeholder="Confirm Password*"
+              ></input>
+              {errors.passwordConfirmation && (
+                <p className="text-red-500 mt-3">
+                  {errors.passwordConfirmation.message}
+                </p>
+              )}
+            </div>
+
             <div className="flex justify-between items-center mt-10">
               <button
                 className=" bg-[#0070f3] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
                 type="submit"
               >
-                Log in
+                Register
               </button>
               <div
                 className="hover:cursor-pointer text-[#0070f3] hover:text-blue-700 underline"
-                onClick={() => router.push('/register')}
+                onClick={() => router.push('/login')}
               >
-                Not registered?
+                Already registered?
               </div>
             </div>
           </div>
