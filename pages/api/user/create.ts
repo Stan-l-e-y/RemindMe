@@ -28,6 +28,10 @@ export default async function handler(
       } else {
         console.log(error);
         res.status(409).json({ error: `User with email already exists` });
+        //TODO: if error.message == Unique constraint failed on the constraint: `User_email_key`, then
+        // res.status(409).json({ error: `User with email already exists` });
+        // else
+        // res.status(500).json({ error: error.message });
       }
     }
   } else {

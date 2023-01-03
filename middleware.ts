@@ -4,10 +4,6 @@ import { verifyJwt } from './lib/jwt.utils';
 import { reIssueAccessToken } from './lib/temp-reissue'; //TODO: change this back to import from the session services file
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //expired token successfully reissues a new one with the refresh token :)
-  //Missing accesstoken also redirects to login :)
-  //Unverifiable JWT results in a redirect to login :)
-
   //TODO: create the prisma proxy and use it to call the db on the edge
   //TODO: fix the reissueAccessToken function to work with the prisma proxy and add a logout router/handler
 
