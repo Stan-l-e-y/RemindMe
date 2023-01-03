@@ -1,6 +1,10 @@
 # Bootstrapping RemindMe
 
-First, clone the repo, cd into the repo and download the dependancies:
+First,
+
+- clone the repo
+- cd into the repo
+- install the dependancies
 
 ```bash
 cd Next-Todo-ts
