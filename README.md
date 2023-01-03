@@ -30,7 +30,7 @@ Rename the `.env-example`
 
 ## Database and Prisma Data Proxy
 
-User authorization takes place in the `middleware.ts` file. The authorization logic eventually calls the database to see if the session is valid. Since [middleware](https://vercel.com/docs/concepts/functions/edge-middleware) in Next.js is run on the [Edge](https://en.wikipedia.org/wiki/Edge_computing), regular TCP database connnection calls are not valid (the runtime is also not Node.js therefore most packages such as PrismaClient are not available, more on this [here](https://www.prisma.io/blog/database-access-on-the-edge-8F0t1s1BqOJE) and [here](https://github.com/prisma/prisma/issues/9928#issuecomment-970631873)). As a result, we must configure a Proxy to sit between the Edge server and our cloud-based database server.
+RemindMe user authorization takes place in the `middleware.ts` file. The authorization logic eventually calls the database to see if the session is valid. Since [middleware](https://vercel.com/docs/concepts/functions/edge-middleware) in Next.js is run on the [Edge](https://en.wikipedia.org/wiki/Edge_computing), regular TCP database connnection calls are not valid (the runtime is also not Node.js therefore most packages such as PrismaClient are not available, more on this [here](https://www.prisma.io/blog/database-access-on-the-edge-8F0t1s1BqOJE) and [here](https://github.com/prisma/prisma/issues/9928#issuecomment-970631873)). As a result, we must configure a Proxy to sit between the Edge server and our cloud-based database server.
 
 To get started:
 
