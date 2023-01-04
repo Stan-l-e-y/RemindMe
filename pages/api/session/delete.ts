@@ -1,4 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { updateSession } from '../../../services/session';
+import { verifyJwt } from '../../../lib/jwt.utils';
+import Cookies from 'cookies';
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,16 +10,33 @@ export default async function handler(
   const { method } = req;
 
   if (method === 'DELETE') {
+    const accesstoken =
+      (res.getHeader('x-access-token') as string) ||
+      (req.cookies.accessToken as string);
     try {
-      //TODO:
-      //get the jwt cookie
-      //get the session id from the jwt cookie
-      //update the session to be invalid
-      //delete the jwt cookie, set new cookie with same name(the access token cookie) but with maxAge = 0
-      //essentially, log out
-      //return accessTokens and refreshTokens as null or idk
-    } catch (error) {
-      //
+      const { decoded } = await verifyJwt(
+        accesstoken,
+        'ACCESS_TOKEN_PUBLIC_KEY'
+      );
+
+      if (decoded) {
+        await updateSession({ id: decoded.session }, { valid: false });
+
+        const cookies = new Cookies(req, res);
+        cookies.set('accessToken', '', {
+          maxAge: 0, // 15 mins
+          httpOnly: true,
+          domain: 'localhost',
+          path: '/',
+          sameSite: 'strict',
+          secure: false,
+        });
+        res.setHeader('x-access-token', '');
+        return res.status(200).json({ accesstoken: null, refreshtoken: null });
+      }
+      return res.status(401).json({ error: 'Unauthorized' });
+    } catch (error: any) {
+      throw new Error(error);
     }
   } else {
     res.setHeader('Allow', ['DELETE']);

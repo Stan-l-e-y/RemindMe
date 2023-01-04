@@ -27,6 +27,18 @@ export async function findSessions(query: object) {
   }
 }
 
+export async function updateSession(query: object, data: object) {
+  try {
+    const session = await prisma.session.update({
+      where: query,
+      data,
+    });
+    return session;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
 export async function reIssueAccessToken({
   refreshToken,
 }: {

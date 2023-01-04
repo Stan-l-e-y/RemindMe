@@ -5,17 +5,31 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { findSessions, exclude } from '../services/session';
 import { verifyJwt } from '../lib/jwt.utils';
 import { Session } from '@prisma/client';
+import { useRouter } from 'next/router';
 
 const Home: NextPage<{ fallbackData: Session[] }> = ({ fallbackData }) => {
+  const router = useRouter();
   const { data: sessions } = useSwr<Session[] | null>(
     '/api/session/sessions',
     fetcher,
     { fallbackData }
   );
 
+  async function logout() {
+    try {
+      await fetch('/api/session/delete', {
+        method: 'DELETE',
+      });
+      router.push('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   if (sessions) {
     return (
       <div>
+        <button onClick={logout}>Log Out</button>
         {sessions.map((session) => (
           <div key={session.id}>{session.id}</div>
         ))}
