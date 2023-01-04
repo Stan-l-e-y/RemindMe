@@ -5,6 +5,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  //TODO: always have to get from header first because if the middleware reissued a new token, itll be in the header
+  //untill i figure out how to set the cookie in the request of the middleware
   const accesstoken =
     (res.getHeader('x-access-token') as string) ||
     (req.cookies.accessToken as string);

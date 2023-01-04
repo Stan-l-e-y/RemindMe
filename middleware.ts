@@ -78,6 +78,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
           sameSite: 'strict',
           secure: false,
         });
+        //TODO: this line below doesnt work, figure out a way to set the cookie in the request of the middleware
         requestHeaders.set('x-access-token', newAccessToken);
       }
 
