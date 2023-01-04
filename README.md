@@ -1,10 +1,10 @@
 # Bootstrapping RemindMe
 
-First,
+First:
 
-- clone the repo
-- cd into the repo
-- install the dependancies
+1. clone the repo
+2. cd into the repo
+3. install the dependancies
 
 ```bash
 cd RemindMe
