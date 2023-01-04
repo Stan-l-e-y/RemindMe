@@ -4,8 +4,7 @@ import { verifyJwt } from './lib/jwt.utils';
 import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //TODO: add a logout router/handler
-
+  //TODO: Implement OAuth2.0 authentication with Google, Facebook
   if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
     const accessToken =
       req.cookies.get('accessToken')?.value ||

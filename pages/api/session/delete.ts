@@ -24,7 +24,7 @@ export default async function handler(
 
         const cookies = new Cookies(req, res);
         cookies.set('accessToken', '', {
-          maxAge: 0, // 15 mins
+          maxAge: 0,
           httpOnly: true,
           domain: 'localhost',
           path: '/',
