@@ -30,7 +30,7 @@ Rename the `.env-example`
 
 ## Environment Variables
 
-❗ For signing JWTs, asymmetric public SPKI and private PKCS#8 encoded RSA keys will be needed. [This](https://stackoverflow.com/a/44474607/17552327) link describes how to generate such keys through the OpenSSL library. Before adding your keys to the appropriate environment variables **_please ensure that you base64 encode your keys, [here](https://www.base64encode.org/) is a handy site that will do so for you_**.❗
+❗ In order to generate access and refresh token by signing signing JWTs, asymmetric public SPKI and private PKCS#8 encoded RSA keys will be needed. [This](https://stackoverflow.com/a/44474607/17552327) link describes how to generate such keys through the OpenSSL library. Before adding your keys to the appropriate environment variables **_please ensure that you base64 encode your keys, [here](https://www.base64encode.org/) is a handy site that will do so for you_**.❗
 
 ## Database and Prisma Data Proxy
 
