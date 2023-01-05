@@ -22,10 +22,10 @@ npm run dev
 yarn dev
 ```
 
-Rename the `.env-example`
+Rename the `.env.example`
 
 ```
-.env-example => .env
+.env.example => .env
 ```
 
 ## Environment Variables

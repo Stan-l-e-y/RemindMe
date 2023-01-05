@@ -11,3 +11,5 @@
 ## - Utils folder which contains utility functions mainly for JWT
 
 ## //TODO: Need to document/update readme in regards to api authorization with JWT and
+
+## update readme to include info on google oauth, add scopes for email and profile
