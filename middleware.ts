@@ -98,3 +98,4 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
 export const config = {
   matcher: '/((?!favicon.ico|_next).*)',
 };
+//TODO: need to remove middleware being run on the /api/session/oauth/*
