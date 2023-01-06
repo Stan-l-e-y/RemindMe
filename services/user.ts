@@ -3,6 +3,7 @@ import { omit } from 'lodash';
 import { UserInput, UpdateUserInput } from '../types/user.schema';
 import bcrypt from 'bcrypt';
 import { SessionInput } from '../types/session.schema';
+import { User } from '@prisma/client';
 
 export async function createUser(input: UserInput) {
   try {

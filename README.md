@@ -1,6 +1,6 @@
 # Bootstrapping RemindMe
 
-First:
+### First:
 
 1. clone the repo
 2. cd into the repo
@@ -14,7 +14,7 @@ npm install
 yarn add
 ```
 
-Then, run the development server:
+### Then, run the development server:
 
 ```bash
 npm run dev
@@ -22,7 +22,7 @@ npm run dev
 yarn dev
 ```
 
-Rename the `.env.example`
+### Rename the `.env.example`
 
 ```
 .env.example => .env
@@ -43,6 +43,16 @@ To get started:
 1. Choose a cloud hosted MySQL DB service ([which to choose?](https://www.prisma.io/dataguide/mysql/5-ways-to-host-mysql#managed-services)), then find and copy the connection string.
 2. Create a Prisma Data Platform project [here](https://cloud.prisma.io/projects) and use the connection string from the previous step
 3. Follow the instructions [here](https://www.prisma.io/docs/data-platform/data-proxy/use-data-proxy) to setup and configure the Prisma Proxy
+
+### Everytime you make changes to your schema you must run:
+
+```bash
+npx prisma db push
+
+npx prisma generate --data-proxy
+```
+
+The first command [synchronizes](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push) the `schema.prisma` schema with the database schema. The second command [generates](https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/generating-prisma-client) a lightweight version of Prisma Client (query builder) so that we can use it on the Edge server
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
