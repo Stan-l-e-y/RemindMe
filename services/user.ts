@@ -57,3 +57,20 @@ export async function validatePassword(input: SessionInput) {
 
   return false;
 }
+
+export async function findAndUpdateUser(
+  query: object,
+  update: object,
+  create: User
+) {
+  //
+  try {
+    const user = await prisma.user.upsert({
+      where: query,
+      update: update,
+      create: create,
+    });
+  } catch (error: any) {
+    //
+  }
+}

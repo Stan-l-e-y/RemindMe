@@ -5,7 +5,9 @@ import { accessTokenCookieOptions } from './lib/tokenOptions';
 import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
+  //TODO: need to remove middleware being run on the /api/session/oauth/*
   //TODO: Implement OAuth2.0 authentication with Google, Facebook
+  //TODO: Document OAuth?
   if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
     const accessToken =
       req.cookies.get('accessToken')?.value ||
@@ -96,6 +98,5 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: '/((?!favicon.ico|_next).*)',
+  matcher: '/((?!favicon.ico|_next|api/session/oauth/*).*)',
 };
-//TODO: need to remove middleware being run on the /api/session/oauth/*
