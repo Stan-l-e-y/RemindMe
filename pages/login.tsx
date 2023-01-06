@@ -9,6 +9,7 @@ import {
   createSessionSchema,
   CreateSessionInput,
 } from '../types/client/session';
+import getGoogleOAuthUrl from '.././lib/client/getGoogleUrl';
 
 export default function Login() {
   const router = useRouter();
@@ -127,6 +128,9 @@ export default function Login() {
             </div>
           </div>
         </form>
+        <button onClick={() => router.push(getGoogleOAuthUrl())}>
+          Log in with Google
+        </button>
       </main>
     </div>
   );

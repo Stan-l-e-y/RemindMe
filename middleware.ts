@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJwt } from './lib/jwt.utils';
+import { accessTokenCookieOptions } from './lib/tokenOptions';
 import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
@@ -69,14 +70,11 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
         //if the client is on a separete domain cannot set cookies therefore has to resolve to taking the cookies from the header. Then in theory, the client should have a middleware that checks if new tokens are set in the headers via the line below and then update the localstorage with the new tokens
         response.headers.set('x-access-token', newAccessToken);
 
-        response.cookies.set('accessToken', newAccessToken, {
-          maxAge: 900000, // 15 mins
-          httpOnly: true,
-          domain: 'localhost',
-          path: '/',
-          sameSite: 'strict',
-          secure: false,
-        });
+        response.cookies.set(
+          'accessToken',
+          newAccessToken,
+          accessTokenCookieOptions
+        );
         //TODO: this line below doesnt work, figure out a way to set the cookie in the request of the middleware
         requestHeaders.set('x-access-token', newAccessToken);
       }

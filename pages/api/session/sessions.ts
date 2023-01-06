@@ -11,19 +11,29 @@ export default async function handler(
     (res.getHeader('x-access-token') as string) ||
     (req.cookies.accessToken as string);
 
-  try {
-    const { decoded } = await verifyJwt(accesstoken, 'ACCESS_TOKEN_PUBLIC_KEY');
+  const { method } = req;
 
-    if (decoded) {
-      const sessions = await findSessions({
-        userId: decoded.id,
-        valid: true,
-      });
+  if (method === 'GET') {
+    try {
+      const { decoded } = await verifyJwt(
+        accesstoken,
+        'ACCESS_TOKEN_PUBLIC_KEY'
+      );
 
-      return res.status(200).json(sessions);
+      if (decoded) {
+        const sessions = await findSessions({
+          userId: decoded.id,
+          valid: true,
+        });
+
+        return res.status(200).json(sessions);
+      }
+      return res.status(401).json({ error: 'Unauthorized' });
+    } catch (error: any) {
+      throw new Error(error);
     }
-    return res.status(401).json({ error: 'Unauthorized' });
-  } catch (error: any) {
-    throw new Error(error);
+  } else {
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

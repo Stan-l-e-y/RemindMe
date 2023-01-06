@@ -9,6 +9,10 @@ import { validatePassword } from '../../../services/user';
 import { createSession } from '../../../services/session';
 import { signJwt } from '../../../lib/jwt.utils';
 import Cookies from 'cookies';
+import {
+  accessTokenCookieOptions,
+  refreshTokenCookieOptions,
+} from '../../../lib/tokenOptions';
 
 export default async function handler(
   req: NextApiRequest,
@@ -53,23 +57,9 @@ export default async function handler(
         );
 
         const cookies = new Cookies(req, res);
-        cookies.set('accessToken', accessToken, {
-          maxAge: 900000, // 15 mins
-          httpOnly: true,
-          domain: 'localhost',
-          path: '/',
-          sameSite: 'strict',
-          secure: false,
-        });
+        cookies.set('accessToken', accessToken, accessTokenCookieOptions);
 
-        cookies.set('refreshToken', refreshToken, {
-          maxAge: 3.154e10, // 1 year
-          httpOnly: true,
-          domain: 'localhost',
-          path: '/',
-          sameSite: 'strict',
-          secure: false,
-        });
+        cookies.set('refreshToken', refreshToken, refreshTokenCookieOptions);
 
         //if client cannot handle cookies, send tokens in response body
         //then the client will take this json response and store it in localstorage or however they want to store it and use it for future requests in the Authorization header
