@@ -27,11 +27,16 @@ model User {
 model Account {
   id        Int      @id @default(autoincrement())
   type      String
-  provider  String
+  provider  Provider
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
 
   @@index(userId)
+  @@unique(fields: [userId, provider], name: "userProvider")
+}
+
+enum Provider {
+  GOOGLE
 }
 
 model Session {

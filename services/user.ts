@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { UserInput, UpdateUserInput } from '../types/user.schema';
 import bcrypt from 'bcrypt';
 import { SessionInput } from '../types/session.schema';
-import { User } from '@prisma/client';
+import { OAuthUserInput } from '../types/oauth/oauth';
 
 export async function createUser(input: UserInput) {
   try {
@@ -62,16 +62,16 @@ export async function validatePassword(input: SessionInput) {
 export async function findAndUpdateUser(
   query: object,
   update: object,
-  create: User
+  create: OAuthUserInput
 ) {
-  //
   try {
     const user = await prisma.user.upsert({
       where: query,
       update: update,
       create: create,
     });
+    return omit(user, 'password');
   } catch (error: any) {
-    //
+    throw new Error(error);
   }
 }
