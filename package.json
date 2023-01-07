@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-client": "prisma generate --data-proxy",
+    "migrate-deploy": "DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma migrate deploy",
+    "dev-db": "DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma migrate dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",

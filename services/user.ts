@@ -49,7 +49,7 @@ export async function validatePassword(input: SessionInput) {
 
   const validPassword = await bcrypt.compare(
     input.body.password,
-    user.password
+    user.password as string
   );
 
   if (validPassword) {

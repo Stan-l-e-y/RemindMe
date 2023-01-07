@@ -31,7 +31,7 @@ export default async function handler(
       }
       //update or create the user in our database, type: oauth, provider: Google, first_name: googleUser.given_name, last_name: googleUser.family_name
       //TODO: Maybe not upsert user, upsert account AND user, the update on user will not update anything, is user not exist, make one
-      //so maybe i dont need upsert, if not found, create
+      //so maybe i dont need upsert, if not found, create. TODO: FIX PRISMA DB PUSH IN NPM SCRIPT
       //
       //create a session
       //

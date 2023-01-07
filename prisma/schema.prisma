@@ -16,7 +16,7 @@ model User {
   firstName String
   lastName  String
   password  String?
-  picture   String 
+  picture   String? 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
