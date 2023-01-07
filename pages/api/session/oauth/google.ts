@@ -29,7 +29,9 @@ export default async function handler(
       if (!googleUser.verified_email) {
         return res.status(403).send('Google account is not verified');
       }
-      //update or create the user in our database
+      //update or create the user in our database, type: oauth, provider: Google, first_name: googleUser.given_name, last_name: googleUser.family_name
+      //TODO: Maybe not upsert user, upsert account AND user, the update on user will not update anything, is user not exist, make one
+      //so maybe i dont need upsert, if not found, create
       //
       //create a session
       //
