@@ -29,15 +29,15 @@ export default async function handler(
     const code = req.query.code as string;
 
     try {
-      //try and get the ID and Access tokens from Googles auth server
+      //try and get the ID and Access tokens from Googles auth server (TODO: later on might need to also get the refresh_token)
       const { id_token, access_token } = await getGoogleOAuthTokens({ code });
       //get user (info) from Googles resource server with the ID and Access tokens
       const googleUser = await getGoogleUser({ id_token, access_token });
-      console.log({ googleUser }); //so far so good
+
       if (!googleUser.verified_email) {
         return res.status(403).send('Google account is not verified');
       }
-      //If user found then return user else create the user in our database, type: oauth, provider: Google, first_name: googleUser.given_name, last_name: googleUser.family_name
+      //If user found then return user, else create the user in our database
       // TODO: FIX PRISMA DB PUSH IN NPM SCRIPT
 
       const user = await findAndUpdateUser(
@@ -50,12 +50,13 @@ export default async function handler(
           picture: googleUser.picture || '',
         }
       );
-      //upsert oauth account in db
+
       //TODO: Might also need to store their access and refresh tokens. That way if theyre signed in with google but also signed in with facebook to give me
       //access to their birthdays, I can look up their account by userProvider and grab tokens from there
 
+      //upsert oauth account in db, not updating anything if found. If not found, create new account
       //Finding by userProvider which is a compound key derived from userId and provider
-      const account = await findAndUpdateAccount(
+      await findAndUpdateAccount(
         {
           userProvider: {
             userId: user.id,
