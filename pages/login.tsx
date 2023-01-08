@@ -10,8 +10,12 @@ import {
   CreateSessionInput,
 } from '../types/client/session';
 import getGoogleOAuthUrl from '.././lib/client/getGoogleUrl';
+import getFacebookUrl from '../lib/client/getFacebookUrl';
+import type { GetServerSideProps, NextPage } from 'next';
+import sha256 from 'crypto-js/sha256';
+import CryptoJS from 'crypto-js';
 
-export default function Login() {
+const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
   const router = useRouter();
 
   const {
@@ -131,7 +135,26 @@ export default function Login() {
         <button onClick={() => router.push(getGoogleOAuthUrl())}>
           Log in with Google
         </button>
+        <button
+          className="mt-10"
+          onClick={() => router.push(getFacebookUrl(code_challenge))}
+        >
+          Log in with Facebook
+        </button>
       </main>
     </div>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const code_verifier = process.env.CODE_VERIFIER as string;
+  const hash = sha256(code_verifier);
+  const code_challenge = CryptoJS.enc.Base64url.stringify(hash);
+  return {
+    props: {
+      code_challenge: code_challenge,
+    },
+  };
+};
+
+export default Login;

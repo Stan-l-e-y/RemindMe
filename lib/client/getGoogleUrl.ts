@@ -10,6 +10,7 @@ function getGoogleOAuthURL() {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
+      'openid',
     ].join(' '),
   };
 

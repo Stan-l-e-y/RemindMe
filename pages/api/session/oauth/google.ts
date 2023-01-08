@@ -30,8 +30,12 @@ export default async function handler(
 
     try {
       //try and get the ID and Access tokens from Googles auth server (TODO: later on might need to also get the refresh_token)
+      //TODO: if we're only USING A PROVIDER FOR AUTHENTICATION WE DONT NEED THE ACCESS TOKEN, DECODE THE ID TOKEN (OPENID) AND USE THAT TO STORE USER
+      //google has the email, full name and profile pic on their jwt. We can also store their id_token in our db
+      //we also need to validate the jwt that google sent us (not rly important cuz its a server-server connection between us and google)
       const { id_token, access_token } = await getGoogleOAuthTokens({ code });
       //get user (info) from Googles resource server with the ID and Access tokens
+
       const googleUser = await getGoogleUser({ id_token, access_token });
 
       if (!googleUser.verified_email) {
