@@ -13,17 +13,13 @@ import {
   FaceBookUserResult,
   FacebookUserPermissionsResult,
   FacebookUserPermissionResult,
+  FaceBookDecodedIDToken,
 } from '../../../../types/oauth/facebook';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //TODO:i have to check if they declined permissions to email, if they did send back error saying that its needed for the app
-  //once i get the token back, "https://graph.facebook.com/USER-ID/permissions?access_token=ACCESS-TOKEN"
-  //also try  https://graph.facebook.com/me/permissions?access_token=ACCESS-TOKEN
-  //also "https://graph.facebook.com/USER-ID/permissions?access_token=ACCESS-TOKEN&permission=email&status=granted"
-  //or swap permission with public_profile
   //Account can have a new field called id_token
 
   const { method } = req;
@@ -51,13 +47,34 @@ export default async function handler(
         );
 
       if (!emailPermission || emailPermission.status != 'granted') {
+        //TODO: return a proper message to the login page indicating why they werent allowed access (email perm required)
         console.log('Email Permission not granted, redirecting to login...');
         res.redirect(307, '/login');
       }
 
-      //i should be verifying instead of just decoding, fetch the public key from facebook
-      const data = jose.decodeJwt(id_token);
-      // console.log(data);
+      //Retrieve Facebook's public key (JWK format) and validate the OIDC token as per Facebook's documentation, https://developers.facebook.com/docs/facebook-login/limited-login/token/validating/#jwt-well-formed
+
+      const JWKS = jose.createRemoteJWKSet(
+        new URL('https://www.facebook.com/.well-known/oauth/openid/jwks/')
+      );
+
+      const { payload }: { payload: FaceBookDecodedIDToken } =
+        await jose.jwtVerify(id_token, JWKS, {
+          issuer: 'https://www.facebook.com',
+          audience: '547647384076575',
+        });
+
+      //As per FaceBook's documentation,'This field will not be returned if no valid email address is available.'
+      if (!payload.email) {
+        console.log(
+          'Email missing, must have valid Email to log into RemindMe. Redirecting to login...'
+        );
+        res.redirect(307, '/login');
+      }
+
+      //upsert user
+      //
+
       res.redirect(307, '/');
     } catch (error: any) {
       //
