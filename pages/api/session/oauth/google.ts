@@ -104,7 +104,7 @@ export default async function handler(
       cookies.set('accessToken', accessToken, accessTokenCookieOptions);
 
       cookies.set('refreshToken', refreshToken, refreshTokenCookieOptions);
-      //redirect back to "/" meaning our home page, since Google sent a get request here which naturally return any html
+      //redirect back to "/" meaning our home page, since Google sent a get request here which naturally returns html
       res.redirect(307, '/');
     } catch (error: any) {
       throw new Error(error);

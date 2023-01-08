@@ -15,31 +15,31 @@ import {
   FacebookUserPermissionResult,
   FaceBookDecodedIDToken,
 } from '../../../../types/oauth/facebook';
+import { findAndUpdateUser } from '../../../../services/user';
+import { findAndUpdateAccount } from '../../../../services/account';
+import { createSession } from '../../../../services/session';
+import { signJwt } from '../../../../lib/jwt.utils';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //Account can have a new field called id_token
+  //TODO: Account can have a new field called id_token
 
   const { method } = req;
 
   if (method === 'GET') {
-    // console.log(req.query.code);
     const code = req.query.code as string;
     try {
       //
-      const { access_token, id_token } = await getFacebookOAuthTokens({ code }); //damn it works
+      const { access_token, id_token } = await getFacebookOAuthTokens({ code });
 
-      //use access_token to make request to user permissions endpoint
-
+      //use access_token to make request to user permissions endpoint, validate that user has granted us access to their email
       const userPermissions =
         await getFacebookResource<FacebookUserPermissionsResult>(
           'me/permissions',
           access_token
         );
-
-      //find email permission, check for status == 'granted
 
       const emailPermission: FacebookUserPermissionResult | undefined =
         userPermissions.data.find(
@@ -73,8 +73,62 @@ export default async function handler(
       }
 
       //upsert user
-      //
+      const user = await findAndUpdateUser(
+        { email: payload.email as string },
+        {},
+        {
+          email: payload.email as string,
+          firstName: payload.given_name as string,
+          lastName: payload.family_name as string,
+          picture: payload.picture || '',
+        }
+      );
 
+      await findAndUpdateAccount(
+        {
+          userProvider: {
+            userId: user.id,
+            provider: 'FACEBOOK',
+          },
+        },
+        {},
+        {
+          userId: user.id,
+          provider: 'FACEBOOK',
+          type: 'oauth',
+        }
+      );
+
+      //create a session
+      const session = await createSession(
+        user.id,
+        req.headers['user-agent'] || ''
+      );
+      //create Access and Refresh tokens for RemindMe
+      const accessTokenTtl = (process.env['accessTokenTtl'] as string) ?? '15m';
+
+      const refreshTokenTtl =
+        (process.env['refreshTokenTtl'] as string) ?? '1y';
+
+      const accessToken = await signJwt(
+        { ...user, session: session.id },
+        'ACCESS_TOKEN_PRIVATE_KEY',
+        undefined,
+        accessTokenTtl
+      );
+
+      const refreshToken = await signJwt(
+        { ...user, session: session.id },
+        'REFRESH_PRIVATE_KEY',
+        undefined,
+        refreshTokenTtl
+      );
+      //set cookies for the tokens
+      const cookies = new Cookies(req, res);
+      cookies.set('accessToken', accessToken, accessTokenCookieOptions);
+
+      cookies.set('refreshToken', refreshToken, refreshTokenCookieOptions);
+      //redirect back to "/" meaning our home page, since Facebook sent a get request here which naturally returns html
       res.redirect(307, '/');
     } catch (error: any) {
       //

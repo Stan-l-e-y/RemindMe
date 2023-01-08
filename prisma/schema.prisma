@@ -37,6 +37,7 @@ model Account {
 
 enum Provider {
   GOOGLE
+  FACEBOOK
 }
 
 model Session {
