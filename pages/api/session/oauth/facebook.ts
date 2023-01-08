@@ -11,7 +11,8 @@ import {
 import * as jose from 'jose';
 import {
   FaceBookUserResult,
-  FacebookPermissionsResult,
+  FacebookUserPermissionsResult,
+  FacebookUserPermissionResult,
 } from '../../../../types/oauth/facebook';
 
 export default async function handler(
@@ -34,14 +35,25 @@ export default async function handler(
       //
       const { access_token, id_token } = await getFacebookOAuthTokens({ code }); //damn it works
 
-      //use tokens to make request to permissions endpoint, if email is allowed continue with req, if not return redirect to login with error
+      //use access_token to make request to user permissions endpoint
 
-      const permissions = await getFacebookResource<FacebookPermissionsResult>(
-        'me/permissions',
-        access_token
-      );
+      const userPermissions =
+        await getFacebookResource<FacebookUserPermissionsResult>(
+          'me/permissions',
+          access_token
+        );
 
-      console.log(permissions.data[0].status == 'granted');
+      //find email permission, check for status == 'granted
+
+      const emailPermission: FacebookUserPermissionResult | undefined =
+        userPermissions.data.find(
+          (permission) => permission.permission == 'email'
+        );
+
+      if (!emailPermission || emailPermission.status != 'granted') {
+        console.log('Email Permission not granted, redirecting to login...');
+        res.redirect(307, '/login');
+      }
 
       //i should be verifying instead of just decoding, fetch the public key from facebook
       const data = jose.decodeJwt(id_token);

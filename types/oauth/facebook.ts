@@ -22,11 +22,11 @@ enum Status {
   expired = 'expired',
 }
 
-export interface FacebookPermissionResult {
+export interface FacebookUserPermissionResult {
   permission: string;
   status: Status;
 }
 
-export interface FacebookPermissionsResult {
-  data: FacebookPermissionResult[];
+export interface FacebookUserPermissionsResult {
+  data: FacebookUserPermissionResult[];
 }
