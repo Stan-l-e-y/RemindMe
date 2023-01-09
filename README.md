@@ -34,6 +34,27 @@ In order to generate access and refresh token by signing JWTs, asymmetric public
 
 ❗To retain formatting, before adding your keys to the appropriate environment variables **_please ensure that you base64 encode your keys, [here](https://www.base64encode.org/) is a handy site that will do so for you_**.❗
 
+### Facebook credentials
+
+To allow users signing into our application via Facebook we must follow the OAuth 2.0 protocol and use the Facebook Graph API to authenticate our users.
+
+- Follow the guide [here](https://developers.facebook.com/docs/facebook-login/web) to register you application with Facebook.
+- Enable and configure Facebook Login through the developer dashboard.
+
+By default, Facebook has the `email` and `public_profile` permissions/scopes enabled which are the only two our app requires.
+
+### Google credentials
+
+To allow users signing into our application via Google we must follow the OAuth 2.0 protocol in order to use Google APIs.
+
+Follow [this](https://developers.google.com/identity/protocols/oauth2) guide from Google on how to register your application with them.
+
+Once registered, navigate to the Google API Console and locate the OAuth consent screen section. The most important part here is selecting the necessary scopes which are as follows:
+
+- `email`
+- `profile`
+- `openid`
+
 ## Database and Prisma Data Proxy
 
 RemindMe user authorization takes place in the `middleware.ts` file. The authorization logic eventually calls the database to see if the session is valid. Since [middleware](https://vercel.com/docs/concepts/functions/edge-middleware) in Next.js is run on the [Edge](https://en.wikipedia.org/wiki/Edge_computing), regular TCP database connnection calls are not valid (the runtime is also not Node.js therefore most packages such as PrismaClient are not available, more on this [here](https://www.prisma.io/blog/database-access-on-the-edge-8F0t1s1BqOJE) and [here](https://github.com/prisma/prisma/issues/9928#issuecomment-970631873)). As a result, we must configure a Proxy to sit between the Edge server and our cloud-based database server.
