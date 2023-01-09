@@ -55,6 +55,8 @@ Once registered, navigate to the Google API Console and locate the OAuth consent
 - `profile`
 - `openid`
 
+Once your application is registered and configured with both Facebook and Google, you should be able to locate the appropriate environment variables in each sites respected dashboard and fill them into the `.env`
+
 ## Database and Prisma Data Proxy
 
 RemindMe user authorization takes place in the `middleware.ts` file. The authorization logic eventually calls the database to see if the session is valid. Since [middleware](https://vercel.com/docs/concepts/functions/edge-middleware) in Next.js is run on the [Edge](https://en.wikipedia.org/wiki/Edge_computing), regular TCP database connnection calls are not valid (the runtime is also not Node.js therefore most packages such as PrismaClient are not available, more on this [here](https://www.prisma.io/blog/database-access-on-the-edge-8F0t1s1BqOJE) and [here](https://github.com/prisma/prisma/issues/9928#issuecomment-970631873)). As a result, we must configure a Proxy to sit between the Edge server and our cloud-based database server.
