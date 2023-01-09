@@ -5,8 +5,7 @@ import { accessTokenCookieOptions } from './lib/tokenOptions';
 import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  //TODO: need to remove middleware being run on the /api/session/oauth/*
-  //TODO: Implement OAuth2.0 authentication with Google, Facebook
+  //TODO: event table, everything is an event(parent class) i.e. birthday, todo item, event.
   if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
     const accessToken =
       req.cookies.get('accessToken')?.value ||
