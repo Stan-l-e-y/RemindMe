@@ -78,6 +78,12 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
         );
         //TODO: this line below doesnt work, figure out a way to set the cookie in the request of the middleware
         requestHeaders.set('x-access-token', newAccessToken);
+      } else {
+        response.cookies.set('accessToken', '');
+        response.cookies.set('refreshToken', '');
+        console.log('failed to verify, redirecting to login...');
+        url.pathname = '/login';
+        return NextResponse.redirect(url);
       }
 
       const { decoded } = await verifyJwt(

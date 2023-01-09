@@ -1,7 +1,7 @@
 import Cookies from 'cookies';
 
 export const accessTokenCookieOptions: Cookies.SetOption = {
-  maxAge: 900000, // 15 mins
+  maxAge: 3.154e10, // 1 year
   httpOnly: true,
   domain: 'localhost',
   path: '/',
