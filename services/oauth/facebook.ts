@@ -47,8 +47,6 @@ export async function getFacebookResource<T>(
   accessToken: string,
   fields?: string
 ): Promise<T> {
-  //return data as T
-
   const hostUrl = 'https://graph.facebook.com/';
   const fieldsUrl = fields ? `&fields=${fields}` : '';
 
