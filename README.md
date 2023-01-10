@@ -2,9 +2,9 @@
 
 ### First:
 
-1. clone the repo
-2. cd into the repo
-3. install the dependancies
+1. Clone the repo
+2. `cd` into the repo
+3. Install the dependancies
 
 ```bash
 cd RemindMe
