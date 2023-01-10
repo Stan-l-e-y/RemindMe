@@ -11,7 +11,7 @@ export default function Test() {
 
       <main>
         <div className="flex w-full h-screen">
-          <div className="bg-red-500 w-full  max-w-[400px]">left</div>
+          <div className=" bg-blueGrey-500 w-full  max-w-[400px]">left</div>
           <div className="bg-blue-500 w-full flex justify-between">
             <div>left</div>
             <div>right</div>
