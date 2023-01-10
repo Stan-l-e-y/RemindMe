@@ -32,7 +32,7 @@ yarn dev
 
 In order to generate access and refresh token by signing JWTs, asymmetric public SPKI and private PKCS#8 encoded RSA keys will be needed. [This](https://stackoverflow.com/a/44474607/17552327) link describes how to generate such keys through the OpenSSL library.
 
-❗To retain formatting, before adding your keys to the appropriate environment variables **_please ensure that you base64 encode them. [Here](https://www.base64encode.org/) is a handy site that will encode them for you_**.❗
+❗To retain formatting, before adding your keys to the appropriate environment variables **_please ensure that you base64 encode them._** [Here](https://www.base64encode.org/) is a handy site that will encode them for you.❗
 
 ### Facebook credentials
 
