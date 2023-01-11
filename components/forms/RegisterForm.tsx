@@ -44,22 +44,14 @@ export default function RegisterForm({
   };
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="h-[40rem] w-[20rem] flex-col "
-      >
-        <div className="border border-solid border-gray-700 mt-10 p-8">
-          <div className=" flex flex-col">
-            <label htmlFor="email" className="font-semibold mb-2">
-              Email
-            </label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <div>
             <input
               type="email"
               className="form-control
                 w-full
                           self-start
-                          px-3
-                          py-1.5
                           text-base
                           font-normal
                           text-white
@@ -67,7 +59,7 @@ export default function RegisterForm({
                           rounded-lg
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
               {...register('email')}
               placeholder="Enter email*"
             ></input>
@@ -76,17 +68,13 @@ export default function RegisterForm({
             )}
           </div>
 
-          <div className="mt-10 flex flex-col ">
-            <label htmlFor="firstName" className="font-semibold mb-2">
-              First Name
-            </label>
+          <div>
             <input
               type="text"
               className="form-control
                 w-full
                           self-start
-                          px-3
-                          py-1.5
+                          
                           text-base
                           font-normal
                           text-white
@@ -94,7 +82,7 @@ export default function RegisterForm({
                           rounded-lg
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                           focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
               {...register('firstName')}
               placeholder="Enter First Name*"
             ></input>
@@ -103,17 +91,12 @@ export default function RegisterForm({
             )}
           </div>
 
-          <div className="mt-10 flex flex-col ">
-            <label htmlFor="lastName" className="font-semibold mb-2">
-              Last Name
-            </label>
+          <div>
             <input
               type="text"
               className="form-control
                 w-full
-                          self-start
-                          px-3
-                          py-1.5
+                          self-start                          
                           text-base
                           font-normal
                           text-white
@@ -121,7 +104,7 @@ export default function RegisterForm({
                           rounded-lg
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
               {...register('lastName')}
               placeholder="Enter Last Name*"
             ></input>
@@ -130,17 +113,12 @@ export default function RegisterForm({
             )}
           </div>
 
-          <div className="mt-10 flex flex-col ">
-            <label htmlFor="password" className="font-semibold mb-2">
-              Password
-            </label>
+          <div>
             <input
               type="password"
               className="form-control
                 w-full
-                          self-start
-                          px-3
-                          py-1.5
+                          self-start                          
                           text-base
                           font-normal
                           text-white
@@ -148,7 +126,7 @@ export default function RegisterForm({
                           rounded-lg
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
               {...register('password')}
               placeholder="Enter password*"
             ></input>
@@ -157,20 +135,12 @@ export default function RegisterForm({
             )}
           </div>
 
-          <div className="mt-10 flex flex-col ">
-            <label
-              htmlFor="passwordConfirmation"
-              className="font-semibold mb-2"
-            >
-              Confirm Password
-            </label>
+          <div>
             <input
               type="password"
               className="form-control
                 w-full
-                          self-start
-                          px-3
-                          py-1.5
+                          self-start                         
                           text-base
                           font-normal
                           text-white
@@ -178,7 +148,7 @@ export default function RegisterForm({
                           rounded-lg
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
               {...register('passwordConfirmation')}
               placeholder="Confirm Password*"
             ></input>
@@ -196,12 +166,6 @@ export default function RegisterForm({
             >
               Register
             </button>
-            <div
-              className="hover:cursor-pointer text-[#0070f3] hover:text-blue-700 underline"
-              onClick={() => router.push('/login')}
-            >
-              Already registered?
-            </div>
           </div>
         </div>
       </form>

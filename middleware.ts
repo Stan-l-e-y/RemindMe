@@ -6,7 +6,7 @@ import { reIssueAccessToken } from './services/session';
 
 export default async function middleware(req: NextRequest, res: NextResponse) {
   //TODO: event table, everything is an event(parent class) i.e. birthday, todo item, event.
-  if (req.nextUrl.pathname == '/login' || req.nextUrl.pathname == '/register') {
+  if (req.nextUrl.pathname == '/login') {
     const accessToken =
       req.cookies.get('accessToken')?.value ||
       req.headers.get('Authorization')?.replace(/^Bearer\s/, ''); //or try lodash get
@@ -29,7 +29,6 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
 
   if (
     req.nextUrl.pathname !== '/login' &&
-    req.nextUrl.pathname !== '/register' &&
     req.nextUrl.pathname !== '/api/session/create' &&
     req.nextUrl.pathname !== '/api/user/create'
   ) {
