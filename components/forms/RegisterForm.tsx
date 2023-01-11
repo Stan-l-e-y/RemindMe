@@ -6,11 +6,11 @@ import type { NextRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 
 export default function RegisterForm({
-  router,
   setServerError,
+  setIsLoginView,
 }: {
-  router: NextRouter;
   setServerError: Dispatch<SetStateAction<string | null>>;
+  setIsLoginView: Dispatch<SetStateAction<boolean>>;
 }) {
   const {
     register,
@@ -22,7 +22,7 @@ export default function RegisterForm({
 
   const onSubmit = async (data: CreateUserInput) => {
     try {
-      const res = await fetcher(
+      await fetcher(
         '/api/user/create',
         {
           method: 'POST',
@@ -34,7 +34,7 @@ export default function RegisterForm({
         true
       );
 
-      router.push('/login'); //TODO: change this to toggle the Login view boolean
+      setIsLoginView(true);
     } catch (error: any) {
       setServerError(error.message);
       setTimeout(() => {
@@ -159,9 +159,9 @@ export default function RegisterForm({
             )}
           </div>
 
-          <div className="flex justify-between items-center mt-10">
+          <div>
             <button
-              className=" bg-[#0070f3] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+              className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700  text-white font-bold py-2 px-4 rounded "
               type="submit"
             >
               Register

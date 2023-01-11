@@ -50,12 +50,13 @@ export default function LoginForm({
               type="email"
               className="form-control
                 w-full
+                py-2 px-4
                           self-start
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
@@ -66,17 +67,18 @@ export default function LoginForm({
               <p className="text-red-500 mt-3">{errors.email?.message}</p>
             )}
           </div>
-          <div>
+          <div className="mt-5">
             <input
               type="password"
               className="form-control
                 w-full
+                py-2 px-4
                           self-start
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
@@ -87,12 +89,12 @@ export default function LoginForm({
               <p className="text-red-500 mt-3">{errors.password?.message}</p>
             )}
           </div>
-          <div>
+          <div className="mt-5">
             <button
-              className=" bg-[#0070f3] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+              className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700  text-white font-bold py-2 px-4 w-full rounded-2xl tracking-widest "
               type="submit"
             >
-              Log in
+              Login
             </button>
           </div>
         </div>

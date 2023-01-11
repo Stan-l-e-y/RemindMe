@@ -48,36 +48,68 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
             </div>
             <div
               id="right"
-              className="w-full bg-blueGrey-900 border rounded-3xl p-3"
+              className="w-full bg-blueGrey-800 border rounded-3xl p-5 m-3"
             >
-              <div id="serverError">
-                {serverError && (
-                  <p className="error mt-5 mb-5 text-red-500">{serverError}</p>
-                )}
-              </div>
-              <div id="formRender">
-                {isLoginView ? (
-                  <LoginForm router={router} setServerError={setServerError} />
-                ) : (
-                  <RegisterForm
-                    router={router}
-                    setServerError={setServerError}
-                  />
-                )}
-              </div>
-              <div id="OAuthLogin">
-                {' '}
-                <button onClick={() => router.push(getGoogleOAuthUrl())}>
-                  Log in with Google
-                </button>
-                <button
-                  className="mt-10"
-                  onClick={() => router.push(getFacebookUrl(code_challenge))}
+              <div className="wrapper p-6 h-full flex flex-col">
+                <div id="serverError">
+                  {serverError && (
+                    <p className="error mt-5 mb-5 text-red-500">
+                      {serverError}
+                    </p>
+                  )}
+                </div>
+                <div id="formRender" className="mt-5">
+                  {isLoginView ? (
+                    <LoginForm
+                      router={router}
+                      setServerError={setServerError}
+                    />
+                  ) : (
+                    <RegisterForm
+                      setServerError={setServerError}
+                      setIsLoginView={setIsLoginView}
+                    />
+                  )}
+                </div>
+                <div
+                  id="OAuthLogin"
+                  className="bg-blueGrey-300 mt-3 flex flex-col rounded-2xl"
                 >
-                  Log in with Facebook
-                </button>
+                  {' '}
+                  <div className="flex self-center">
+                    <div>-----</div>
+                    <div>Or Login with</div>
+                    <div>-----</div>
+                  </div>
+                  <div id="buttons">
+                    <button onClick={() => router.push(getGoogleOAuthUrl())}>
+                      Google
+                    </button>
+                    <button
+                      className=""
+                      onClick={() =>
+                        router.push(getFacebookUrl(code_challenge))
+                      }
+                    >
+                      Facebook
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="footerText"
+                  className="bg-blueGrey-300 mt-3 rounded-2xl"
+                >
+                  {isLoginView
+                    ? 'Dont have an account? '
+                    : 'Already Registered? '}
+                  <span
+                    className="hover:cursor-pointer"
+                    onClick={() => setIsLoginView(!isLoginView)}
+                  >
+                    {isLoginView ? 'Sign up now ' : 'Login here '}
+                  </span>
+                </div>
               </div>
-              <div id="footerText">Dont have an account? Sign up now</div>
             </div>
           </div>
         </div>
