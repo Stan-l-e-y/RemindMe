@@ -57,11 +57,12 @@ export default function LoginForm({
                           text-base
                           font-normal
                           text-white
-                          border border-solid border-gray-700
+                          border border-solid border-blueGrey-600
                           rounded-2xl
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-blueGrey-50
+                          m-0 focus:outline-none    bg-inherit flex-1"
             {...register('email')}
             placeholder="Enter email*"
           ></input>
@@ -79,11 +80,12 @@ export default function LoginForm({
                           text-base
                           font-normal
                           text-white
-                          border border-solid border-gray-700
+                          border border-solid border-blueGrey-600
                           rounded-2xl
                           transition
                           ease-in-out
-                          m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
+                          focus:outline-blueGrey-50
+                          m-0 focus:outline-none  bg-inherit flex-1"
             {...register('password')}
             placeholder="Enter password*"
           ></input>

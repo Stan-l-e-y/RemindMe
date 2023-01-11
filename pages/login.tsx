@@ -18,6 +18,9 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
   const [serverError, setServerError] = useState<string | null>(null); // can pass setServerError as prop to both form components
   const [isLoginView, setIsLoginView] = useState<boolean>(true);
 
+  //TODO: fix documention to include updates on the prisma scripts/commands
+  //TODO: BUG fix clicking login multiple times, maybe debounce for serverside + disable button for client
+
   return (
     <div>
       <Head>
@@ -28,7 +31,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
 
       <main>
         <div
-          className={`bg-blueGrey-400 w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
+          className={`bg-blueGrey-500 w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
         >
           <div className="col-start-4 col-end-10 row-start-2 row-end-3  flex w-full h-full justify-center ">
             <div
@@ -51,7 +54,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
             </div>
             <div
               id="right"
-              className={`w-full bg-blueGrey-800 border rounded-3xl p-5 m-3 overflow-auto ${
+              className={`w-full bg-blueGrey-800 border border-blueGrey-50 rounded-3xl p-5 m-3 overflow-auto shadow-blueGrey-100 shadow-md ${
                 isLoginView ? 'h-[72%]' : 'h-[95%]'
               }`}
             >
@@ -93,7 +96,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                   <div id="buttons" className=" flex ">
                     <button
                       onClick={() => router.push(getGoogleOAuthUrl())}
-                      className="py-2 px-4 w-full bg-blueGrey-900 rounded-2xl mr-3 flex justify-center"
+                      className="py-2 px-4 w-full bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800 rounded-2xl mr-3 flex justify-center"
                     >
                       <Image
                         alt="Google logo"
@@ -101,12 +104,15 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                         width={30}
                         height={30}
                         style={{
-                          maxWidth: '100%',
+                          width: 'auto',
+                          height: 'auto',
+                          minHeight: '30px',
+                          minWidth: '30px',
                         }}
                       />
                     </button>
                     <button
-                      className="py-2 px-4 w-full bg-blueGrey-900 rounded-2xl ml-3 flex justify-center"
+                      className="py-2 px-4 w-full bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800 rounded-2xl ml-3 flex justify-center"
                       onClick={() =>
                         router.push(getFacebookUrl(code_challenge))
                       }
@@ -117,7 +123,10 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                         width={30}
                         height={30}
                         style={{
-                          maxWidth: '100%',
+                          width: 'auto',
+                          height: 'auto',
+                          minHeight: '30px',
+                          minWidth: '30px',
                         }}
                       />
                     </button>
@@ -128,7 +137,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                     ? 'Dont have an account? '
                     : 'Already Registered? '}
                   <span
-                    className="hover:cursor-pointer text-blueGrey-200"
+                    className="hover:cursor-pointer text-blueGrey-300 hover:text-blueGrey-50"
                     onClick={() => setIsLoginView(!isLoginView)}
                   >
                     {isLoginView ? 'Sign up now ' : 'Login here '}
