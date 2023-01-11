@@ -43,12 +43,14 @@ export default function LoginForm({
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className=" ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-evenly h-full"
+      >
         <div>
-          <div>
-            <input
-              type="email"
-              className="form-control
+          <input
+            type="email"
+            className="form-control
                 w-full
                 py-2 px-4
                           self-start
@@ -60,17 +62,17 @@ export default function LoginForm({
                           transition
                           ease-in-out
                           m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('email')}
-              placeholder="Enter email*"
-            ></input>
-            {errors.email && (
-              <p className="text-red-500 mt-3">{errors.email?.message}</p>
-            )}
-          </div>
-          <div className="mt-5">
-            <input
-              type="password"
-              className="form-control
+            {...register('email')}
+            placeholder="Enter email*"
+          ></input>
+          {errors.email && (
+            <p className="text-red-500 mt-3">{errors.email?.message}</p>
+          )}
+        </div>
+        <div className="mt-5">
+          <input
+            type="password"
+            className="form-control
                 w-full
                 py-2 px-4
                           self-start
@@ -82,21 +84,20 @@ export default function LoginForm({
                           transition
                           ease-in-out
                           m-0 focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('password')}
-              placeholder="Enter password*"
-            ></input>
-            {errors.password && (
-              <p className="text-red-500 mt-3">{errors.password?.message}</p>
-            )}
-          </div>
-          <div className="mt-5">
-            <button
-              className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700  text-white font-bold py-2 px-4 w-full rounded-2xl tracking-widest "
-              type="submit"
-            >
-              Login
-            </button>
-          </div>
+            {...register('password')}
+            placeholder="Enter password*"
+          ></input>
+          {errors.password && (
+            <p className="text-red-500 mt-3">{errors.password?.message}</p>
+          )}
+        </div>
+        <div className="mt-5">
+          <button
+            className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800  text-white font-bold py-2 px-4 w-full rounded-2xl tracking-widest "
+            type="submit"
+          >
+            Login
+          </button>
         </div>
       </form>
     </>

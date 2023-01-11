@@ -44,129 +44,134 @@ export default function RegisterForm({
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-evenly h-full"
+      >
         <div>
-          <div>
-            <input
-              type="email"
-              className="form-control
+          <input
+            type="email"
+            className="form-control
                 w-full
+                py-2 px-4
                           self-start
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('email')}
-              placeholder="Enter email*"
-            ></input>
-            {errors.email && (
-              <p className="text-red-500 mt-3">{errors.email?.message}</p>
-            )}
-          </div>
+            {...register('email')}
+            placeholder="Enter email*"
+          ></input>
+          {errors.email && (
+            <p className="text-red-500 mt-3">{errors.email?.message}</p>
+          )}
+        </div>
 
-          <div>
-            <input
-              type="text"
-              className="form-control
+        <div className="mt-5">
+          <input
+            type="text"
+            className="form-control
                 w-full
                           self-start
-                          
+                          py-2 px-4
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                            focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('firstName')}
-              placeholder="Enter First Name*"
-            ></input>
-            {errors.firstName && (
-              <p className="text-red-500 mt-3">{errors.firstName.message}</p>
-            )}
-          </div>
+            {...register('firstName')}
+            placeholder="Enter first name*"
+          ></input>
+          {errors.firstName && (
+            <p className="text-red-500 mt-3">{errors.firstName.message}</p>
+          )}
+        </div>
 
-          <div>
-            <input
-              type="text"
-              className="form-control
+        <div className="mt-5">
+          <input
+            type="text"
+            className="form-control
                 w-full
+                py-2 px-4
                           self-start                          
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('lastName')}
-              placeholder="Enter Last Name*"
-            ></input>
-            {errors.lastName && (
-              <p className="text-red-500 mt-3">{errors.lastName.message}</p>
-            )}
-          </div>
+            {...register('lastName')}
+            placeholder="Enter last name*"
+          ></input>
+          {errors.lastName && (
+            <p className="text-red-500 mt-3">{errors.lastName.message}</p>
+          )}
+        </div>
 
-          <div>
-            <input
-              type="password"
-              className="form-control
+        <div className="mt-5">
+          <input
+            type="password"
+            className="form-control
                 w-full
+                py-2 px-4
                           self-start                          
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('password')}
-              placeholder="Enter password*"
-            ></input>
-            {errors.password && (
-              <p className="text-red-500 mt-3">{errors.password?.message}</p>
-            )}
-          </div>
+            {...register('password')}
+            placeholder="Enter password*"
+          ></input>
+          {errors.password && (
+            <p className="text-red-500 mt-3">{errors.password?.message}</p>
+          )}
+        </div>
 
-          <div>
-            <input
-              type="password"
-              className="form-control
+        <div className="mt-5">
+          <input
+            type="password"
+            className="form-control
                 w-full
+                py-2 px-4
                           self-start                         
                           text-base
                           font-normal
                           text-white
                           border border-solid border-gray-700
-                          rounded-lg
+                          rounded-2xl
                           transition
                           ease-in-out
                           focus:outline-none  focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 bg-inherit flex-1"
-              {...register('passwordConfirmation')}
-              placeholder="Confirm Password*"
-            ></input>
-            {errors.passwordConfirmation && (
-              <p className="text-red-500 mt-3">
-                {errors.passwordConfirmation.message}
-              </p>
-            )}
-          </div>
+            {...register('passwordConfirmation')}
+            placeholder="Confirm password*"
+          ></input>
+          {errors.passwordConfirmation && (
+            <p className="text-red-500 mt-3">
+              {errors.passwordConfirmation.message}
+            </p>
+          )}
+        </div>
 
-          <div>
-            <button
-              className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700  text-white font-bold py-2 px-4 rounded "
-              type="submit"
-            >
-              Register
-            </button>
-          </div>
+        <div className="mt-5">
+          <button
+            className=" bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800  text-white font-bold py-2 px-4 w-full rounded-2xl tracking-widest "
+            type="submit"
+          >
+            Register
+          </button>
         </div>
       </form>
     </>

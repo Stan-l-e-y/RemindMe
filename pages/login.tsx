@@ -9,6 +9,9 @@ import LoginForm from '@/components/forms/LoginForm';
 import RegisterForm from '@/components/forms/RegisterForm';
 import getGoogleOAuthUrl from '../lib/client/getGoogleUrl';
 import getFacebookUrl from '../lib/client/getFacebookUrl';
+import Image from 'next/image';
+import Google from '../public/GOOG-0ed88f7c.png';
+import Facebook from '../public/Facebook_Logo_(2019).png.webp';
 
 const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
   const router = useRouter();
@@ -25,12 +28,12 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
 
       <main>
         <div
-          className={`bg-blueGrey-400 w-full h-screen ${styles.wrapper} items-center overflow-auto`}
+          className={`bg-blueGrey-400 w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
         >
-          <div className="col-start-4 col-end-10 row-span-1 row-end-3  flex justify-center  w-full h-full ">
+          <div className="col-start-4 col-end-10 row-start-2 row-end-3  flex w-full h-full justify-center ">
             <div
               id="left"
-              className="w-full flex flex-col p-3 h-full justify-between"
+              className="w-full flex flex-col p-3  justify-between h-[70%]"
             >
               <div className=" h-full flex flex-col justify-center pl-7">
                 <div className="font-semibold text-5xl">RemindMe</div>
@@ -48,17 +51,19 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
             </div>
             <div
               id="right"
-              className="w-full bg-blueGrey-800 border rounded-3xl p-5 m-3"
+              className={`w-full bg-blueGrey-800 border rounded-3xl p-5 m-3 overflow-auto ${
+                isLoginView ? 'h-[72%]' : 'h-[95%]'
+              }`}
             >
-              <div className="wrapper p-6 h-full flex flex-col">
-                <div id="serverError">
-                  {serverError && (
+              <div className="wrap p-5  flex flex-col h-full justify-between ">
+                {serverError && (
+                  <div id="serverError">
                     <p className="error mt-5 mb-5 text-red-500">
                       {serverError}
                     </p>
-                  )}
-                </div>
-                <div id="formRender" className="mt-5">
+                  </div>
+                )}
+                <div id="formRender" className="basis-[50%]">
                   {isLoginView ? (
                     <LoginForm
                       router={router}
@@ -73,37 +78,57 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                 </div>
                 <div
                   id="OAuthLogin"
-                  className="bg-blueGrey-300 mt-3 flex flex-col rounded-2xl"
+                  className={` flex flex-col rounded-2xl basis-[40%]  ${
+                    isLoginView ? 'pt-6' : 'pt-8'
+                  }`}
                 >
                   {' '}
-                  <div className="flex self-center">
-                    <div>-----</div>
-                    <div>Or Login with</div>
-                    <div>-----</div>
+                  <div className="relative flex  items-center mb-6">
+                    <div className="flex-grow border-t border-blueGrey-400"></div>
+                    <span className="flex-shrink mx-4 text-blueGrey-400">
+                      {isLoginView ? 'Or Login with' : 'Or Sign up with'}
+                    </span>
+                    <div className="flex-grow border-t border-blueGrey-400"></div>
                   </div>
-                  <div id="buttons">
-                    <button onClick={() => router.push(getGoogleOAuthUrl())}>
-                      Google
+                  <div id="buttons" className=" flex ">
+                    <button
+                      onClick={() => router.push(getGoogleOAuthUrl())}
+                      className="py-2 px-4 w-full bg-blueGrey-900 rounded-2xl mr-3 flex justify-center"
+                    >
+                      <Image
+                        alt="Google logo"
+                        src={Google}
+                        width={30}
+                        height={30}
+                        style={{
+                          maxWidth: '100%',
+                        }}
+                      />
                     </button>
                     <button
-                      className=""
+                      className="py-2 px-4 w-full bg-blueGrey-900 rounded-2xl ml-3 flex justify-center"
                       onClick={() =>
                         router.push(getFacebookUrl(code_challenge))
                       }
                     >
-                      Facebook
+                      <Image
+                        alt="Facebook logo"
+                        src={Facebook}
+                        width={30}
+                        height={30}
+                        style={{
+                          maxWidth: '100%',
+                        }}
+                      />
                     </button>
                   </div>
                 </div>
-                <div
-                  id="footerText"
-                  className="bg-blueGrey-300 mt-3 rounded-2xl"
-                >
+                <div id="footerText" className=" rounded-2xl text-center mt-5 ">
                   {isLoginView
                     ? 'Dont have an account? '
                     : 'Already Registered? '}
                   <span
-                    className="hover:cursor-pointer"
+                    className="hover:cursor-pointer text-blueGrey-200"
                     onClick={() => setIsLoginView(!isLoginView)}
                   >
                     {isLoginView ? 'Sign up now ' : 'Login here '}
