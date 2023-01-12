@@ -93,9 +93,10 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                     </span>
                     <div className="flex-grow border-t border-blueGrey-400"></div>
                   </div>
-                  <div id="buttons" className=" flex ">
+                  <div id="OAuthButtons" className=" flex ">
                     <button
                       onClick={() => router.push(getGoogleOAuthUrl())}
+                      id="google"
                       className="py-2 px-4 w-full bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800 rounded-2xl mr-3 flex justify-center"
                     >
                       <Image
@@ -112,6 +113,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
                       />
                     </button>
                     <button
+                      id="facebook"
                       className="py-2 px-4 w-full bg-gradient-to-r from-blueGrey-500 to-blueGrey-700 hover:from-blueGrey-600 hover:to-blueGrey-800 rounded-2xl ml-3 flex justify-center"
                       onClick={() =>
                         router.push(getFacebookUrl(code_challenge))
