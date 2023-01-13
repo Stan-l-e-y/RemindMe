@@ -57,6 +57,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     }
 
     if (expired && refreshToken) {
+      //i couldve just redirected to an api route that handles this, removing the proxy lol. Prop same performance, either calling the proxy server or the application server :/
       const newAccessToken = await reIssueAccessToken({ refreshToken });
       const requestHeaders = new Headers(req.headers);
 
