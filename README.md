@@ -67,15 +67,15 @@ To get started:
 2. Create a Prisma Data Platform project [here](https://cloud.prisma.io/projects) and use the connection string from the previous step
 3. Follow the instructions [here](https://www.prisma.io/docs/data-platform/data-proxy/use-data-proxy) to setup and configure the Prisma Proxy
 
-### Everytime you make changes to your schema you must run:
+### Everytime you make changes to your schema you must run these scripts:
 
 ```bash
-npx prisma db push
+npm run db-push
 
-npx prisma generate --data-proxy
+npm run generate-client
 ```
 
-The first command [synchronizes](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push) the `schema.prisma` schema with the database schema. The second command [generates](https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/generating-prisma-client) a lightweight version of Prisma Client (query builder) so that we can use it on the Edge server
+The first script [synchronizes](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push) the `schema.prisma` schema with the database schema. The second script [generates](https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/generating-prisma-client) a lightweight version of Prisma Client (query builder) so that we can use it on the Edge server. _Note, the reason as to why there is a script for this and we are not just running the command is because we need to switch the database URL. Currently it points to the proxy but when we want to make changes to the database we need to switch it to the actual database connection URL_
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
