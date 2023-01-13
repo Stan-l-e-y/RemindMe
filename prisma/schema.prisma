@@ -22,6 +22,7 @@ model User {
 
   accounts  Account[]
   sessions  Session[]
+  events    Event[]
 }
 
 model Account {
@@ -50,4 +51,28 @@ model Session {
   user      User     @relation(fields: [userId], references: [id])
 
   @@index(userId)
+}
+
+enum EventType {
+  BIRTHDAY
+  APPOINTMENT
+  MEETING
+  EVENT 
+  CELEBRATION
+  PARTY
+  FITNESS
+  NETWORKING
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startDate DateTime 
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index(userId) 
 }
