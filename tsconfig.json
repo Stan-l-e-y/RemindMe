@@ -18,7 +18,9 @@
     "paths": {
       "@/pages/*": ["pages/*"],
       "@/services/*": ["services/*"],
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts"],

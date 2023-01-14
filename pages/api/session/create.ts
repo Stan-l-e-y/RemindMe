@@ -6,7 +6,6 @@ import {
   SessionInput,
 } from '../../../types/session.schema';
 import { validatePassword } from '../../../services/user';
-// import { createSession } from '../../../services/session';
 import { createSession } from '@/services/session';
 import { signJwt } from '../../../lib/jwt.utils';
 import Cookies from 'cookies';

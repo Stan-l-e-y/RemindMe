@@ -54,6 +54,7 @@ model Session {
 }
 
 enum EventType {
+  REMINDER
   BIRTHDAY
   APPOINTMENT
   MEETING
@@ -65,14 +66,15 @@ enum EventType {
 }
 
 model Event {
-  id        Int      @id @default(autoincrement())
-  name      String
-  startDate DateTime 
-  endDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?   @db.Text
+  startDate   DateTime 
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 
   @@index(userId) 
 }
