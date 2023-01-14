@@ -29,7 +29,7 @@ export default async function handler(
       if (decoded) {
         const event = await createEvent(
           createEventBody as EventInput,
-          decoded?.user.id as number
+          decoded.id as number
         );
         res.status(201).json(event);
       }
