@@ -33,7 +33,7 @@ export default function LoginForm({
         body: JSON.stringify(data),
       });
 
-      router.push('/');
+      router.push('/home');
     } catch (error: any) {
       setServerError(error.message);
       setTimeout(() => {
