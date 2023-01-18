@@ -31,7 +31,7 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
 
       <main>
         <div
-          className={`bg-blueGrey-500 w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
+          className={`w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
         >
           <div className="col-start-4 col-end-10 row-start-2 row-end-3  flex w-full h-full justify-center ">
             <div

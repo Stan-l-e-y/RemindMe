@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
       return NextResponse.next();
     }
     const url = req.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = '/home';
     return NextResponse.redirect(url);
   }
 
