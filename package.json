@@ -9,6 +9,7 @@
     "lint": "next lint",
     "generate-client": "prisma generate --data-proxy",
     "db-push": "dotenv -e .env cross-env DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma db push",
+    "db-reset": "dotenv -e .env cross-env DATABASE_URL=\"$MIGRATE_DATABASE_URL\"  prisma migrate reset",
     "test": "jest --watch"
   },
   "dependencies": {

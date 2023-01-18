@@ -31,7 +31,8 @@ export default async function handler(
           createEventBody as EventInput,
           decoded.id as number
         );
-        res.status(201).json(event);
+        console.log(event);
+        return res.status(201).json(event);
       }
 
       return res.status(401).json({ error: 'Unauthorized' });

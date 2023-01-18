@@ -25,13 +25,17 @@ export default function LoginForm({
 
   const onSubmit = async (data: CreateSessionInput) => {
     try {
-      await fetcher('/api/session/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      await fetcher(
+        '/api/session/create',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+        true
+      );
 
       router.push('/home');
     } catch (error: any) {
