@@ -6,22 +6,35 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <div className={`${styles.navRows} `}>
+      <div className={`${styles.navContentRows} `}>
         {router.pathname !== '/login' && (
           <div
-            className={`${styles.navGrid} w-full p-5 fixed row-start-1 row-end-2`}
+            className={`${styles.navGrid} w-full p-5 fixed row-start-1 row-end-2 z-10`}
           >
-            <div className="col-start-1 col-end-3 bg-blueGrey-600 flex p-2 rounded-2xl ">
-              1
+            <div className="col-start-2 col-end-3 bg-blueGrey-600 flex p-2 justify-center rounded-2xl ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"
+                />
+              </svg>
             </div>
-            <div className="col-start-6 col-end-8 bg-blueGrey-600 flex p-2 justify-center rounded-2xl  ">
+            <div className="col-start-6 col-end-8 bg-blueGrey-600  flex p-2 justify-center rounded-2xl  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={3}
                 stroke="currentColor"
-                className="w-6 h-6 "
+                className="w-6 h-6  "
               >
                 <path
                   strokeLinecap="round"
@@ -30,8 +43,21 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
                 />
               </svg>
             </div>
-            <div className="col-start-11 col-end-13 bg-blueGrey-600 p-2 rounded-2xl">
-              3
+            <div className="col-start-11 col-end-12 bg-blueGrey-600 flex p-2 justify-center rounded-2xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
             </div>
           </div>
         )}

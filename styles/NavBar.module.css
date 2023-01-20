@@ -1,14 +1,13 @@
 .navGrid {
   display: grid;
-  /* TODO: change from 3 6 3 =>  2 3 2 3 2    where 3 is the empty space and 2 is the content*/
-  grid-template-columns:
-    repeat(2, minmax(0, 192px)) repeat(3, minmax(0, 1fr))
-    repeat(2, minmax(0, 192px)) repeat(3, minmax(0, 1fr)) repeat(2, minmax(0, 192px));
 
-  /* grid-template-rows: minmax(48px, 1fr) minmax(768px, 1fr) minmax(48px, 1fr); */
+  /* TODO: Make buttons grow (max) with larger media breaks */
+  grid-template-columns:
+    repeat(2, minmax(0, 64px)) repeat(3, minmax(0, 1fr))
+    repeat(2, minmax(0, 32px)) repeat(3, minmax(0, 1fr)) repeat(2, minmax(0, 64px));
 }
 
-.navRows {
+.navContentRows {
   display: grid;
   grid-template-rows: 96px auto;
 }
