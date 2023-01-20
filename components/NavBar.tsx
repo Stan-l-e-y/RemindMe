@@ -11,7 +11,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
           <div
             className={`${styles.navGrid} w-full p-5 fixed row-start-1 row-end-2 z-10`}
           >
-            <div className="col-start-2 col-end-3 bg-blueGrey-600 flex p-2 justify-center rounded-2xl ">
+            <div className="col-start-2 col-end-3 bg-blueGrey-600 flex p-2 justify-center rounded-2xl hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -27,7 +27,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
                 />
               </svg>
             </div>
-            <div className="col-start-6 col-end-8 bg-blueGrey-600  flex p-2 justify-center rounded-2xl  ">
+            <div className="col-start-6 col-end-8 bg-blueGrey-600  flex p-2 justify-center rounded-2xl hover:cursor-pointer ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -43,7 +43,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
                 />
               </svg>
             </div>
-            <div className="col-start-11 col-end-12 bg-blueGrey-600 flex p-2 justify-center rounded-2xl">
+            <div className="col-start-11 col-end-12 bg-blueGrey-600 flex p-2 justify-center rounded-2xl hover:cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
