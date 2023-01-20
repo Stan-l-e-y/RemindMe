@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   };
   //
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full ">
       home
       <div>test</div>
       <form onSubmit={handleSubmit(onSubmit)}>
