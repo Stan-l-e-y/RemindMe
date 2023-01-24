@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       console.log(error);
     }
   };
-  //
+
   return (
     <div className="h-screen w-full ">
       home
@@ -41,55 +41,70 @@ const Home: NextPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
-          className="form-control
-                w-full
-                py-2 px-4
-                          self-start
-                          text-base
-                          font-normal
-                          text-white
-                          border border-solid border-blueGrey-600
-                          rounded-2xl
-                          transition
-                          ease-in-out
-                          focus:outline-blueGrey-50
-                          m-0 focus:outline-none    bg-inherit flex-1"
+          className="
+           w-full
+           py-2 px-4
+           self-start
+           text-base
+           font-normal
+           text-white
+           border border-solid 
+           border-blueGrey-600
+           rounded-2xl
+           transition
+           ease-in-out
+           focus:outline-blueGrey-50
+           m-0 
+           focus:outline-none 
+           bg-inherit 
+           flex-1
+           "
           {...register('name')}
           placeholder="Enter name*"
         ></input>
         <input
           type="text"
-          className="form-control
-                w-full
-                py-2 px-4
-                          self-start
-                          text-base
-                          font-normal
-                          text-white
-                          border border-solid border-blueGrey-600
-                          rounded-2xl
-                          transition
-                          ease-in-out
-                          focus:outline-blueGrey-50
-                          m-0 focus:outline-none    bg-inherit flex-1"
+          className="
+           w-full
+           py-2 px-4
+           self-start
+           text-base
+           font-normal
+           text-white
+           border border-solid 
+           border-blueGrey-600
+           rounded-2xl
+           transition
+           ease-in-out
+           focus:outline-blueGrey-50
+           m-0 
+           focus:outline-none 
+           bg-inherit 
+           flex-1
+           "
           {...register('type')}
           placeholder="Enter type*"
         ></input>
         <input
           type="date"
-          className="form-control
-                w-full
-                py-2 px-4
-                          self-start
-                          text-base
-                          font-normal
-                          text-white
-                          border border-solid border-blueGrey-600
-                          rounded-2xl
-                          transition
-                          ease-in-out
-                          focus:outline-blueGrey-50
-                          m-0 focus:outline-none    bg-inherit flex-1"
+          className="
+           w-full
+           py-2 px-4
+           self-start
+           text-base
+           font-normal
+           text-white
+           border border-solid 
+           border-blueGrey-600
+           rounded-2xl
+           transition
+           ease-in-out
+           focus:outline-blueGrey-50
+           m-0 
+           focus:outline-none 
+           bg-inherit 
+           flex-1
+           "
           {...register('startDate')}
         ></input>
         <button
