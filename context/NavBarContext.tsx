@@ -11,12 +11,12 @@ type AddEventContextValue = {
   setAddEvent: Dispatch<SetStateAction<boolean>>;
 };
 
-const AddEventCtxDefaultVal: AddEventContextValue = {
+export const AddEventCtxDefaultVal: AddEventContextValue = {
   addEvent: false,
   setAddEvent: (state) => {},
 };
 
-const AddEventContext = createContext(AddEventCtxDefaultVal);
+export const AddEventContext = createContext(AddEventCtxDefaultVal);
 
 export function AddEventProvider({ children }: { children: React.ReactNode }) {
   const [addEvent, setAddEvent] = useState(AddEventCtxDefaultVal.addEvent);

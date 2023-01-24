@@ -35,6 +35,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
             </div>
             <div
               className={`addEvent ${styles.button} active:shadow-inner col-start-6 col-end-8 hover:bg-blueGrey-500 bg-blueGrey-600  flex p-2 justify-center rounded-2xl hover:cursor-pointer `}
+              onClick={() => setAddEvent(!addEvent)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
