@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from '../styles/Test.module.css';
+import styles from '../styles/Auth.module.css';
 import type { GetServerSideProps, NextPage } from 'next';
 import sha256 from 'crypto-js/sha256';
 import CryptoJS from 'crypto-js';
@@ -31,9 +31,9 @@ const Login: NextPage<{ code_challenge: string }> = ({ code_challenge }) => {
 
       <main>
         <div
-          className={`w-full  ${styles.wrapper} items-center overflow-auto h-screen`}
+          className={`w-full ${styles.wrapper} items-center overflow-auto h-screen`}
         >
-          <div className="col-start-4 col-end-10 row-start-2 row-end-3  flex w-full h-full justify-center ">
+          <div className="col-start-4 col-end-10 row-start-2 row-end-3 flex w-full h-full justify-center ">
             <div
               id="left"
               className="w-full flex flex-col p-3  justify-between h-[70%]"

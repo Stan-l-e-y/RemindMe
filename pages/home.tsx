@@ -3,6 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import fetcher from '@/lib/fetcher';
+import styles from '@/styles/Home.module.css';
 
 const Home: NextPage = () => {
   const {
@@ -35,10 +36,13 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="h-screen w-full ">
+    <div className={` ${styles.grid} h-screen w-full`}>
       home
       <div>test</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`col-start-4 col-end-10 row-start-2 row-end-3 `}
+      >
         <input
           type="text"
           className="

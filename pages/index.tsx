@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css';
 import useSwr from 'swr';
 import fetcher from '../lib/fetcher';
 import type { GetServerSideProps, NextPage } from 'next';
@@ -37,7 +36,7 @@ const Home: NextPage<{ fallbackData: Session[] }> = ({ fallbackData }) => {
     );
   }
 
-  return <div className={styles.container}>Please login</div>;
+  return <div>Please login</div>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
