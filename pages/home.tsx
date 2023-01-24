@@ -13,6 +13,9 @@ const Home: NextPage = () => {
     resolver: zodResolver(createEventSchema),
   });
 
+  //TODO: show event add form onClick of the plus icon
+  //TODO: create layout of home page (main content)
+
   const onSubmit = async (data: CreateEventInput) => {
     try {
       await fetcher(
