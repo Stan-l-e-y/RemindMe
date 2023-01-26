@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       home
       <div>test</div>
       {addEvent ? <AddEvent /> : ''}
-      <div className="col-start-4 col-end-10 row-start-2 row-end-3 ">
+      <div className="col-start-4 col-end-10 row-start-2 row-end-3 bg-blueGrey-600">
         main content
       </div>
     </div>
