@@ -1,4 +1,5 @@
-export default function DailyEvents() {
+export default function DailyEvents({date} : {date: Date}) {
+  //TODO: fetch api events for this date
   return (
     <>
       <div></div>
